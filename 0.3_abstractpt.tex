@@ -1,0 +1,24 @@
+\documentclass[mim_thesis.tex]{subfiles} 
+\begin{document}
+
+O openEHR é uma norma de código aberto livre que providencia como guardar, partilhar e retornar dados de saúde, com a principal ideia de separar estes dados da implementação lógica das aplicações, de uma forma agnóstica. Possui o seu próprio repositório de governância de recursos ou artefactos (arquétipos e templates) chamada Clinical Knowledge Manager (CKM), que está sob constante revisão por uma comunidade online de profissionais em cuidados de saúde e informática. Apesar disso, existe um problema emergente. Cada empresa ou instituição que usa os arquétipos e templates do openEHR nos seus projectos, possuem o seu próprio repositório local com um sistema de ficheiros ou sistema de controlo de versões para os gerir. Estes repositórios são criados no início do projecto, através do download de cópias dos arquétipos disponíveis na CKM num determinado período de tempo e usualmente não são mais actualizados. Durante os anos, a CKM principal (também conhecida como openEHR CKM Internacional) teve nova versões actualizadas para diferentes arquétipos, tendo também uma gestão bem estruturada dos ciclos de vida dos arquétipos, com as novas versões a serem aprovadas depois do consenso de membros da comunidade \citep{Leslie2017}. Isto implica que o conhecimento da openEHR CKM está sempre actualizado, mas isso não acontece necessariamente nos repositórios locais.
+
+Até agora, não havia uma definição clara de como resolver este problema: como gerir um repositório local, mantê-lo conectado com a CKM e manter o repositório local actualizado e em conformidade com este. Baseado neste problema, o objectivo do estudo foi encontrar e implementar uma forma adequada de ter diferente repositórios locais baseados em artefactos do openEHR actualizados e em conformidade com o repositório do openEHR CKM internacional. De modo a alcançar este objectivo, vários estudos foram feitos, tais como:
+\begin{enumerate} [noitemsep]
+\item Estudar como a openEHR CKM funciona, historia, características, funcionalidades e como a verificação de novas versões é feita;
+\item Estudar o estado da arte de metodologias usadas para gerir software e documentação de ciclos de vida;
+\item Rever as especificações do openEHR para o Modelo de Referência (RM) e Modelo de Arquétipos (AM), relacionado com a identificação e versionamento de arquétipos;
+\item Criação de documentação sobre como lidar com o versionamento de arquétipos num repositório local e um “script” para comparar os arquétipos contidos em ambos os repositórios e verificar as novas versões para cada arquétipo vindas da openEHR CKM.
+\item Desenvolvimento e implementação da metodologia proposta e verificação de resultados.
+\end{enumerate}
+
+Inicialmente foi feita uma análise através da comparação entre arquétipos guardados num repositório local de um projecto em desenvolvimento e da versão actual do mesmo arquétipo na openEHR internacional, a qual consistiu numa comparação directa entre a versão “major” (V.x, onde x é um número inteiro correspondente à versão), parâmetros de versionamento e o conteúdo dos arquétipos. Um repositório local para testes foi fornecido e o conteúdo da openEHR CKM é replicado para um repositório de uma conta pública hospedada no GitHub, denominada “OpenEHR CKM international Mirror”. As ferramentas usadas foram compostas por: “ADL Designer” segunda versão da Marand, GitHub REST API, GitLab REST API, openEHR CKM and Tortoise SVN. O script criado para a comparação de ambos os repositórios foi baseado em Angular 2 e TypeScript, e foram usadas chamadas e métodos para as REST API do ADL Designer e GitHub.
+
+A junção de toda a informação recolhida deste estudo permitiu criar uma metodologia e script para comparação de versões, juntamente com documentação sobre como lidar com o versionamento dos arquétipos do openEHR em projectos novos ou em desenvolvimento em repositórios locais. É expectável que contribua com um valor acrescido para a governância de recursos do openEHR.
+Este estudo foi feito juntamente com a Faculdade de Medicina da Universidade do Porto (FMUP) em Portugal e a Marand d.o.o. na Eslovénia no âmbito do projeto em mobilidade “Erasmus + Estágios” de setembro de 2017 a setembro de 2018.\\ 
+
+\textbf{Palavras-chave:} (MeSH) Electronic Health Records, Medical Informatics, Health Information Exchange, Health Information Management (Não-MeSH) OpenEHR, Version Control
+
+
+
+\end{document}

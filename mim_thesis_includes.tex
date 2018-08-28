@@ -1,0 +1,213 @@
+%MIM thesis environments
+
+% rename Bib­li­og­ra­phy to References - tocbibname due to use of tocbibind package
+\renewcommand{\tocbibname}{References}
+
+%format chapter title as "1 Introduction"
+\titleformat{\chapter}{\Huge\bfseries}{\thechapter.}{0.5em}{}
+
+%header and footer setup
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\fancypagestyle{plain}{
+	\fancyhf[HL]{\thepage}
+	\fancyhf[HR]{}
+	\fancyhf[FEC]{}
+	\fancyhf[FOC]{}
+}
+
+\fancypagestyle{chapterbeforemain}{
+	\fancyhf{}
+	\fancyhf[HOL]{\thepage}
+	\fancyhf[HOR]{}
+	\fancyhf[HEL]{}
+	\fancyhf[HER]{\thepage}
+	\fancyhf[FEC]{}
+	\fancyhf[FOC]{}
+}
+
+\fancypagestyle{thesischapter}{
+	\fancyhf{}
+	\fancyhf[HOL]{\thepage}
+	\fancyhf[HOR]{\leftmark}
+	\fancyhf[HEL]{\leftmark}
+	\fancyhf[HER]{\thepage}
+	\fancyhf[FEC]{}
+	\fancyhf[FOC]{}
+}
+
+%config of table of contents
+\addto{\captionsenglish}{\renewcommand*{\contentsname}{Table of Contents}}
+%\addto{\captionsportuges}{\renewcommand*{\contentsname}{Índice}}
+\let\Contentsline\contentsline
+\renewcommand{\contentsline}[3]{\Contentsline{#1}{#2}{#3}}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftdot}{.}
+% for subsubsections to appear in the toc
+\setcounter{tocdepth}{3}
+
+%document one and a half line spacing
+\linespread{1.4}
+
+%paragraph identation
+\setlength{\parindent}{0.5cm}
+
+% numbering of subsubsections
+\setcounter{secnumdepth}{3}
+
+%fontdefinitions
+\newfontfamily\coveredfont[SizeFeatures={Size={12}}]{Lato}
+\newfontfamily\covertitlefont[SizeFeatures={Size={19}}]{Lato Bold}
+\newfontfamily\coverauthfont[SizeFeatures={Size={13}}]{Lato}
+\newfontfamily\coveradvfont[SizeFeatures={Size={12}}]{Lato Bold}
+\newfontfamily\coveryearfont[SizeFeatures={Size={12}}]{Lato}
+\newfontfamily\chaptercoverfont[SizeFeatures={Size={30}},Color=808080]{Lato Bold}
+
+%use as \frontCover{}. image file: img/cover_front.png
+\newcommand{\frontCover}[6]{
+	\thispagestyle{empty}
+	
+	\AddToShipoutPicture*{%
+		\put(0,0){
+			\begin{overpic}[width=\paperwidth]%
+				{img/cover_front.png}
+				\put(140,788){{\coveredfont #1}}
+				\put(180,530){{\covertitlefont #2}}
+				\put(180,510){{\covertitlefont #3}}
+				\put(180,480){{\coverauthfont #4}}
+				\put(174,77){{\coveryearfont #5}}
+				\put(203,77){{\coveryearfont #6}}
+			\end{overpic}
+		}
+	}
+		
+	\newpage
+	\thispagestyle{empty}
+	\mbox{}
+	\newpage
+}
+
+%use as \innerCover{}. image file: img/cover_inner.png
+\newcommand{\innerCover}[8]{
+	\thispagestyle{empty}
+	\cleardoublepage
+	\thispagestyle{empty}
+	
+	\AddToShipoutPicture*{%
+		\put(0,0){
+			\begin{overpic}[width=\paperwidth]%
+				{img/cover_inner.png}
+				\put(140,788){{\coveredfont #1}}
+				\put(180,530){{\covertitlefont #2}}
+				\put(180,510){{\covertitlefont #3}}
+				\put(180,480){{\coverauthfont #4}}
+				\put(180,154){{\coveradvfont #5}}
+				\put(180,140){{\coveradvfont #6}}
+				\put(171,71){{\coveryearfont #7}}
+				\put(201,71){{\coveryearfont #8}}
+			\end{overpic}
+		}
+	}
+		
+	\newpage 
+	\thispagestyle{empty}
+	\mbox{}	
+	\newpage
+	\thispagestyle{empty}
+	\mbox{}	
+	\newpage
+}
+
+%use for chapters before the main work e.g. acknowledgments, abstracts, etc.
+\newcommand{\chapterBeforeMain}[1]{
+	\chapter* {#1}
+	\addcontentsline{toc}{section}{#1}
+	\pagestyle{chapterbeforemain}
+}
+
+%use for Table of Contents as \chapterTOC{Table of Contents}
+\newcommand{\chapterTOC}[1]{
+	\cleardoublepage
+	\phantomsection
+	\addcontentsline{toc}{section}{#1}
+}
+
+%use for List of Figures as \chapterLOF{List of Figures}
+\newcommand{\chapterLOF}[1]{
+	\pagestyle{chapterbeforemain}
+	\newpage
+	\renewcommand{\cftfigpresnum}{Figure }
+	\setlength{\cftfignumwidth}{50pt}
+	\cleardoublepage	
+	\phantomsection
+	\addcontentsline{toc}{section}{#1}
+}
+
+%use for List of Tables as \chapterLOT{List of Tables}
+\newcommand{\chapterLOT}[1]{
+	\pagestyle{chapterbeforemain}
+	\newpage
+	\renewcommand{\cfttabpresnum}{Table }
+	\setlength{\cfttabnumwidth}{50pt}
+	\cleardoublepage	
+	\phantomsection
+	\addcontentsline{toc}{section}{#1}
+}
+
+%use as \chapterCoverFirst{title of chapter}. image file: img/chapter_template.png. 
+%for first chapter cover setting the numbering and header marks
+\newcommand{\chapterCoverFirst}[1]{
+	\cleardoublepage
+	\renewcommand{\chaptermark}[1]{\markboth{##1}{}}
+	\setcounter{page}{1}
+	\pagenumbering{arabic}
+	\thispagestyle{empty}
+	\begin{overpic}[]%
+		{img/chapter_template.png}
+		\put(80,61){{\chaptercoverfont #1}}
+	\end{overpic}	
+	\newpage 
+	\thispagestyle{empty}
+	\mbox{}	
+	\newpage
+	\pagestyle{thesischapter}
+	\fancypagestyle{plain}{%set chapter page to show page num and chapter title
+		\fancyhf{}
+		\fancyhf[HOL]{\thepage}
+		\fancyhf[HOR]{\leftmark}
+		\fancyhf[HEL]{\leftmark}
+		\fancyhf[HER]{\thepage}
+		\fancyhf[FEC]{}
+		\fancyhf[FOC]{}
+	}
+}
+
+%use as \chapterCover{title of chapter}. image file: img/chapter_template.png
+\newcommand{\chapterCover}[1]{
+	\cleardoublepage
+	\thispagestyle{empty}
+	\begin{overpic}[]%
+		{img/chapter_template.png}
+		\put(80,61){{\chaptercoverfont #1}}
+	\end{overpic}	
+	\newpage 
+	\thispagestyle{empty}
+	\mbox{}	
+	\newpage
+	\pagestyle{thesischapter}
+}
+
+%use as \backCover{}. image file: img/cover_back.png
+\newcommand{\backCover}[0]{
+	\cleardoublepage
+	\thispagestyle{empty}
+	\AddToShipoutPicture*{
+		\put(0,0){\includegraphics{img/cover_back.png}}
+	}
+	\newpage
+	\thispagestyle{empty}
+	\mbox{}
+	\newpage
+}
+

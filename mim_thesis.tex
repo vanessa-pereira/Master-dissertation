@@ -1,0 +1,170 @@
+%MIM thesis template
+%send comments and suggestions to josealmeida@gmail.com
+\documentclass[a4paper, twoside, openright]{report}
+\usepackage{acronym}% acronyms
+\usepackage{booktabs}% en­hanced ta­bles
+\usepackage[hypcap,figureposition=bottom,tableposition=top]{caption}%en­hanced ta­ble and figure captions
+\usepackage{enumitem}% item separation [itemsep=3pt] enhance list en­vi­ron­ments: enu­mer­ate, item­ize and de­scrip­tion
+\usepackage{fancyhdr}% manage head­ers and foot­ers
+\usepackage{float}% im­proved in­ter­face for float­ing ob­jects
+\usepackage{fontspec}% font management
+\usepackage[inner=25mm,outer=25mm,bottom=25mm,top=25mm]{geometry}% margin definition
+\usepackage{graphicx}% manage pictures
+\usepackage[breaklinks]{hyperref}% hy­per­text links and bookmarks in the doc­u­ment
+\usepackage{makeidx}% in­dex creation
+\usepackage{natbib}% bibliography formating
+\usepackage[abs]{overpic}%place text over images
+\usepackage{pdfpages}% include external pdf documents
+\usepackage{polyglossia}% language support
+\usepackage{rotating}% ro­ta­tion of fig­ures and ta­bles
+\usepackage{setspace}% spac­ing be­tween lines
+\usepackage{subfiles}% usage of subfiles
+\usepackage{titlesec}% chapter title styles
+\usepackage[titles]{tocloft}% con­trol over ty­pog­ra­phy of the ToC, LoF and LoT
+\usepackage[nottoc,notlof,notlot,numbib]{tocbibind} %adds bib­li­og­ra­phy to the ToC
+\usepackage{ulem}% un­der­lin­ing
+
+%extra adicionado para colocar codigo js
+\usepackage{listings}
+\usepackage{color}
+\usepackage{tabularx}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color
+  basicstyle=\footnotesize,        % size of fonts used for the code
+  breaklines=true,                 % automatic line breaking only at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},       % keyword style
+  stringstyle=\color{mymauve},     % string literal style
+}
+
+%fim do extra adicionado
+
+%language setup
+\setmainlanguage{english}
+\setotherlanguage{portuges}
+\PolyglossiaSetup{english}{indentfirst=true}
+\PolyglossiaSetup{portuges}{indentfirst=true}
+
+%hyperrefences, pdf bookmarks and pdf info setup
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	citecolor=black,
+	urlcolor=black,
+	pdftitle={This is the thesis title},
+	pdfauthor={This is the thesis author name},
+}
+
+\input{mim_thesis_includes}
+
+
+\begin{document}
+\pagenumbering{roman}
+\setcounter{page}{1}
+%\frontCover{EDITION}{THESIS TITLE}{THESIS AUTHOR}{MONTH}{YEAR}
+%\innerCover{EDITION}{THESIS TITLE}{THESIS AUTHOR}{ADVISOR NAME}{CO-ADVISOR NAME}{MONTH}{YEAR}
+
+\frontCover
+{10}
+{Dissertation}
+{Governance of a openEHR based local repository compliant with openEHR international CKM}
+{Vanessa Andreia Azevedo Pereira}
+{DEC}
+{2018}
+
+\innerCover
+{6}
+{Dissertation}
+{Governance of a openEHR based local repository 
+compliant with openEHR CKM}
+{Vanessa Andreia Azevedo Pereira}
+{Ricardo João Cruz-Correia}
+{Egídio Samuel Luizinho Frade}
+{DEC}
+{2018}
+
+\chapterBeforeMain{Acknowledgments}
+\subfile{0.1_acknowledgments}
+
+\chapterBeforeMain{Abstract}
+\subfile{0.2_abstracten}
+
+\chapterBeforeMain{Resumo}
+\subfile{0.3_abstractpt}
+
+\chapterBeforeMain{Preamble}
+\subfile{0.4_preamble}
+
+\chapterBeforeMain{Scientific and Financial Results}
+\subfile{0.5_results}
+
+\chapterTOC{Table of Contents}
+\tableofcontents
+
+\chapterLOF{List of Figures}
+\listoffigures
+
+\chapterLOT{List of Tables}
+\listoftables
+
+\chapterBeforeMain{Acronyms}
+\subfile{0.6_acronyms}
+
+\chapterCoverFirst{Introduction}
+\chapter{Introduction}
+\subfile{1_introduction}
+\section{State of the Art}
+\subfile{1.1_state_of_the_art}
+
+
+\chapterCover{Objectives}
+\chapter{Objectives}
+\subfile{2_objectives}
+
+\chapterCover{Study I - OpenEHR CKM}
+\chapter{Study I - OpenEHR CKM}
+\subfile{3_study_I_CKM}
+
+\chapterCover{Study II - Life cycles of artifacts}
+\chapter{Study II - Life cycles of archetypes and templates}
+\subfile{4_LifeCycles_arch_temp}
+
+\chapterCover{Material \& Methods}
+\chapter{Material and Methods}
+\subfile{5_Material_methods}
+
+\chapterCover{Development \& Implementation}
+\chapter{Development and Implementation}
+\subfile{6_develop_implementation}
+
+\chapterCover{Evaluation}
+\chapter{Evaluation}
+\subfile{7_evaluation}
+
+\chapterCover{Discussion}
+\chapter{Discussion}
+\subfile{8_discussion}
+
+\chapterCover{Conclusion}
+\chapter{Conclusion}
+\subfile{9_conclusion}
+
+\chapterCover{Future Work}
+\chapter{Future Work}
+\subfile{10_future_work}
+
+\chapterCover{References}
+\bibliographystyle{apalike}
+\bibliography{thesisbib}
+
+\chapterCover{Annexes}
+\chapter{Annexes}
+\subfile{annexes}
+
+\backCover{}
+\end{document}

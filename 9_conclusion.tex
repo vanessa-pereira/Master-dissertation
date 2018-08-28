@@ -1,0 +1,99 @@
+\documentclass[mim_thesis.tex]{subfiles} 
+\begin{document}
+
+The proposal of this thesis was to create documentation and a script to implement a suitable way of having the different openEHR local repositories updated and compliant with the openEHR CKM (Clinical Knowledge Manager).   
+
+The usage of online repositories is in constant growth and it can become troublesome to manage all information inside of them. Regarding a clinical knowledge repository based on openEHR artefacts, this content is based on archetypes and templates which internally have very well defined versioning parameters.
+Although these versioning parameters can be very useful to distinguish internal changes and variants of artefacts, when a project is being created and the requirements for the clinical information model are defined, archetypes are simply downloaded from the openEHR CKM and saved in the local repository of the on-going project. When new versions for the same archetypes are uploaded to the openEHR CKM, they usually are not updated on the local repository. Normally a local archetype will be updated only when a bug, error or new requirement is found during the usage of the software that contains that archetype and a check for new version is made manually on the openEHR CKM. Following this, it is common to have a local repository that does not follow the updates made on the openEHR CKM, due to variety of reasons: 
+\begin{enumerate}[noitemsep]
+\item The archetypes in the local repository did not present some issue yet and, due to this, the main thought would be to keep it in the way it is, which is a totally wrong behavior. 
+\item The verification of different archetypes versions in the openEHR CKM can be really time consuming, which leads an avoidance of verification of new resources.
+\end{enumerate}
+
+This, is a kind of thinking and mentality that needs to be changed inside of projects that use this approach. The usage of openEHR resources tells how the data will be save in an EHR system. The archetypes are the CORE basis of how an EHR system based on openEHR standard will take and interpret the data. If this CORE is not well defined, the value of the health data received will be lost. An early and constant verification of new updates can be essential to a timely and effective development of the systems that are making use of these resources.
+
+An "alpha" version of a script that searches the content of an local repository connected to ADL Designer and compares it with the openEHR CKM was made, to help the local repository owner to verify the compliance between both repositories and allows to a faster update of contents. One of its strengths is that it is accessible to everyone: the code is open and it has a live demo that can be accessed at \url{https://mim-script-openehr.stackblitz.io}. Still relatively to the script, the lack of time was a major limitation, which not allows the full verification of versioning parameters and the comparision side by side for each version of archetype on both repositories. Nevertheless there is the chance to have a continuous improvement of it in the future. 
+
+Besides that, documentation with methodologies have also been made for managing versioning of new and actual archetypes. This dissertation was divided in two parts, one for research and the other for the script implementation. 
+
+
+
+\section{Research Summary}
+
+The research on this dissertation was divided in four main topics: 
+\begin{enumerate}[noitemsep]
+\item  Review of the openEHR specifications for Reference Model (RM) and 
+Archetype Model (AM), related with archetype identification and versioning; 
+
+\item Understanding how the openEHR CKM works, history, features, functionalities and how the verification of new versions of artifacts is made on this platform.
+
+\item Study state of art methodologies used for managing software and document lifecycles;
+
+\item Creation of documentation about how to deal with archetype versioning on a local repository and a script to compare the artifacts content in both repositories and verify new updates for each archetype from openEHR CKM; 
+
+\end{enumerate}
+
+The junction of all the information gathered from these studies allowed to 
+create a methodology and script with rules for versioning comparison. The aim of openEHR was creating a set of archetypes in a single international repository (openEHR CKM) that could be used in an EHR system after being agreed by the international online community. Is also possible to add regional or local archetypes that would still compatible with the previous ones inserted in the international CKM and making the information being shareable with everybody. However, the current use of archetypes are not working in this way, due to each project that makes use of archetypes have their own repository and although many resources can be compliant with the openEHR CKM, other are not since few changes have been made to reply to local specifications and requirements, and even sometimes these are not made in a proper way. 
+
+The openEHR group defined rules and methodologies for the archetype development process, commonly called Archetype Development Life Cycle (ADLC) \citep{Madsen2010}, based on the Software Development Life Cycle (SDLC). An adaptation from this set of rules can be seen in the chapter 4 (Life Cycles of Archetypes and Templates), which can be very helpful for creation and management of these resources.
+
+
+
+\subsection{Main Findings}
+After study how the CKM and the archetype versioning works, a comparison between the local repository and the openEHR CKM mirror hosted on Github was analyzed. Many problems were found during this stage on the GitHub openEHR CKM repository, such as:
+
+\begin{itemize}
+\item Archetypes that exists on openEHR CKM, but are not mirrored to the GitHub repository, e.g.: \textit{openEHR-EHR-CLUSTER.address\_isa} and \textit{openEHR-EHR-CLUSTER.healthcare\_provider\_parent}.
+\item Archetypes that have been renamed and lost connection to the previous resource, although they still have the same content and versioning parameters, e.g.: \textit{openEHR-EHR-CLUSTER.timing\_nondaily} and the previous \textit{openEHR-EHR-CLUSTER.timing\_repetition}, or the case of the \textit{openEHR-EHR-OBSERVATION.indirect\_oximetry}, with the previous name \textit{openEHR-EHR-OBSERVATION.pulse\_oximetry}. 
+\item Archetypes that are specialized from other archetypes (parents) and the those archetypes have been updated to newer versions or deleted from the repository, which make the connection between them lost.
+\end{itemize}
+
+
+
+\subsection{Dealing with versioning of openEHR resources}
+
+During the analysis of the provided repository, there was the oportunity to have a "look" at other repositories with openEHR artifacts of different projects, managed by different people with various backgrounds. Many issues were found related with how to deal with versioning, specializations and how to give proper names to these resources.  
+
+Some of these issues exists due to the lack of study and comprehension of how the openEHR standard works, which needs to be very well studied first, since the wrong usage of this, can lead to a very poor way of structuring, storing and retrieving health data. \\
+
+TODO
+
+Specializations: Case of \textit{openEHR-EHR-OBSERVATION.fetal\_heart-monitoring.v1}, which is a specialization of \textit{openEHR-EHR-OBSERVATION.fetal\_heart.v1}. When a specialization happens, the concept\_id "fetal\_heart" gets an hyphen "-" added to this parameter, being the final result "fetal\_heart-monitoring" that allows to easily understand that is a case of specialization.
+
+\subsubsection{Recommendations}
+OpenEHR standard structures how the health data should be stored and retrieved. Nowadays the health data is in constant grow along with the usage of the new wearables that can be connected to device (e.g. smartphone) and send the health data to an EHR server. In the case of this server be rulled by the openEHR standard, which requires to have the core data precisely defined and updated.So when developing a new system, these next steps should be taken into account:
+
+\begin{itemize}
+\item Study the openEHR specification and understand its reference model. It can take time, but a good research can solve a lot of problems. Otherwise, ask an openEHR expert to give insight. Sometimes the experience and a good background in this area can improve and faster the process. One of the biggest mistakes made by various companies is recommending or putting on charge of openEHR resources people that do not have a clue of how this standard works. Any good tool in wrong hands can be abused even with good intentions.
+
+\item Search if the content that will be used within the project, has already some created resources in the openEHR CKM. Use specific keywords to search your subject, choose the archetype and read the associated header along with the use and misuse of this resource. A lot of new archetypes are created inside of local repositories due to a poor search on openEHR CKM. If the openEHR CKM has your topic, but does not include everything you want, suggest a new review to include your content, or specialize the one you want. Nevertheless, send your new archetype for review on the openEHR CKM. A lot of content is being created and reviwed and new clinical content to enrich this platform is always welcome. 
+
+\item If you create a new archetype to fit local requirements, do not name it with the same name as the other archetypes on openEHR CKM. Also, use a correct lifecycle for the process of archetype creation. OpenEHR has very well defined parameters of how to deal with this topic. Check the chapter 3 (OpenEHR CKM) and 4 (Lifecycles of Archetypes and Templates) from this dissertation.  
+
+
+
+\end{itemize}   
+
+\subsubsection{Limitations}
+TODO
+
+\section{Script Summary}
+When developing projects using online repositories, the amount of data will always increase and sometimes the entropy can become troublesome to manage all information inside of it. Regarding a clinical knowledge repository based on openEHR artefacts, this content is based on 
+archetypes and templates which internally have very well defined versioning parameters. Although these versioning parameters can be very useful to distinguish internal changes and variants of artefacts, when a project is being created and the requirements for the clinical information model are defined, archetypes are simply downloaded from the openEHR CKM and saved in the local repository of the on-going project. When new versions for the same archetypes are uploaded to the openEHR CKM, they usually are not updated on the local repository. Normally a local archetype will be updated only when a bug, error or new requirement is found during the usage of the software that contains that archetype and a check for new version is made manually on the openEHR CKM. 
+
+One of the biggest problems of manually checking versions on openEHR 
+CKM is that it can be really time consuming, for example the archetype comparison mentioned on table \ref{tab:repos_comp}, took several hours to complete. Usually checking new versions of archetypes is avoided due to the time that it consumes to be finished. Herewith this documentation and the script created is expected to give a quick and reliable archetype verification between the local repositories and the openEHR CKM, in order to make it compliant and updated with the main source and facilitate the managing work of the local clinical knowledge repository owner. 
+
+About the script, this is the first version and was developed as a proof of concept (POC) using the archetype HRID to help managing the search in the REST API calls: (rm\_publisher-model\_name-rm\_class.concept\_id.v.major). This version only checks if the archetype on the local repository has a major version (e.g. v0 to v1) in the openEHR CKM and it returns the uniform resource locator (URL) links from the different repositories allowing to make a side by side comparison of both versions. 
+
+\subsection{Limitations}
+The main findings reported on subsection \textbf{9.1.1}, can cause issues when running the script, since some archetypes that exist on openEHR CKM and are not mirrored to the openEHR CKM account, will not be found and the script will understand them as an "Internal Archetype". The openEHR CKM mirror repository at GitHub needs to be fully analyzed and updated wherefore to be compliant to with the openEHR CKM. Currently the verification is just made by the major version of archetypes in both databases, the internal versioning parameters are not being used yet.
+
+There was the opportunity to have script been used and tested in three different projects by request. Two of them had an average of 50 archetypes and 10 templates and the other had an average of 670 archetypes and 190 templates. Since the script is dependent of ADL Designer REST API calls, for fetching the content from different repositories, they need to be connected previously to ADL Designer. Currently ADL Designer supports ADL versions 1.4 and 2 of archetypes and .OET format from templates, so if the resources are not well structured or have been edited manually on a text editor, without checking the consistence of data (which can compromise the structuring of these resources) or are saved on a different format, ADL Designer will not read them and automatically exclude this cases. The first two repositories had really "fresh" archetypes and templates, comparing with the third repository that has resources dated from 2013 and with a lot of not recognized formats (.adls, .xml, .opt) by ADL designer, which provokes the exclusion of this cases when presenting the list of resources on the script. Also if a OET template is having in his set's of archetypes, an archetype that does not exists on the repository, it will also retrieve an error and not take this template on consideration.
+
+Also the the time taken for analysis of the script in the third case was considerably bigger (around 4 minutes) than in the first two cases due to the higher number of resources to be analyzed. This can be quicker depending on the internet connection and the machine that is being used to run the script. This was tested on a machine with i5 2nd generation processor with 6 GB of RAM with WI-FI access, using Google Chrome version 68.0.3440.106 (64 bits).
+
+
+
+\end{document}
