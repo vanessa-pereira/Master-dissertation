@@ -5,7 +5,7 @@ This repository contains all the LateX files from my medical informatics master 
 
 ## Abstract
 
-The openEHR is a free open-source standard which provides specifications of how to store, share
+<p align="justify">The openEHR is a free open-source standard which provides specifications of how to store, share
 and retrieve health data with the main idea of separating this data from applications implementation
 logic as an agnostic approach. It has his own governance library repository of resources or artifacts
 (archetypes and templates) called Clinical Knowledge Manager (CKM), that is under constant review by
@@ -18,11 +18,12 @@ main CKM (also known as International openEHR CKM) had new updated versions for 
 archetypes, having a very well-structured management of the archetype’s lifecycles, with the new version
 being approved after a community consensus (Leslie, 2017). This implies that knowledge in the openEHR
 CKM stays always updated, but that does not necessarily happen on the local repositories.
+
 Until now, there was no clear definition on how to solve this issue: how to manage a local repository,
 keep it connected to the CKM and maintain the local repository updated and compliant with it. Based
 on this problem, the aim of the study was to find and implement a suitable way of having the different
 openEHR local repositories updated and compliant with the international openEHR CKM. In order to
-reach it, studies were made, such as:
+reach it, studies were made, such as:<p>
 
 1. Learn how the openEHR CKM works, history, features, functionalities and how the verification of
 new versions of artifacts is made;
@@ -34,15 +35,16 @@ a script to compare the artifacts content in both repositories and verify new up
 archetype from openEHR CKM;
 5. Development and implementation of the proposed methodology and verification of results.
 
-Initially was made a comparison analysis between archetypes stored in a local repository of an ongoing
+<p align="justify">Initially was made a comparison analysis between archetypes stored in a local repository of an ongoing
 project and the current version of the same archetypes in the international openEHR CKM, which
 consisted on a direct comparison between the major version (V.x), versioning parameters and the content
 of archetypes. A local repository for testing was provided and the openEHR CKM mirror is publicly
 available on GitHub. The tools used were composed by ”ADL Designer” version 2 from Marand, GitHub 
 REST API, GitLab REST API, openEHR CKM and Tortoise SVN. The script for comparison of both
 repositories was based on Angular 2 and Typescript and used REST API calls from ADL Designer and
-GitHub API.
-The junction of all the information gathered from this study allowed to create a methodology and
+GitHub API.<p>
+  
+<p align="justify">The junction of all the information gathered from this study allowed to create a methodology and
 a script for versioning comparison, along with documentation of how to deal with the versioning of
 openEHR archetypes on new and ongoing projects of local repositories. It is expected to contribute with
 an added value to the governance of openEHR resources. The study was made along with Faculty of
@@ -51,3 +53,4 @@ mobility from September 2017 to September 2018.
 
 **Keywords:** (MeSH) Electronic Health Records, Medical Informatics, Health Information Exchange,
 Health Information Management (Non-MeSH) OpenEHR, Version Control
+<p>
