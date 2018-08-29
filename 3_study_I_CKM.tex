@@ -88,17 +88,19 @@ The archetypes usually have six stages in the management cycle. They are created
 OpenEHR has dedicated a section that takes care of versioning of archetypes and templates, called the \ac{AOM}, a package inside on the \ac{AM}. In this section will be explained how this package works and what are the inherited parameters from another packages in the OpenEHR Reference Model, which and what are the parameters for version controlling and how to identify in a human and machine readable way the identification of each archetype, associated to his governance and life cycle. 
 
 \subsection{The Archetype Object Model (AOM)}
-The AOM is a programming object from Archetype Model (AM) \citep{openEHRAOM}, that contains all the variables and parameters related with  archetype and template identification, such as archetype specialization, authoring of archetypes, version numbering and respective modifications. Currently, it goes in the version 2, after being renamed from version 1.5 and includes extensions made from the version 1.4 of the ADL, like meta-data, new internal coding system, terminologies addition and many others. \par 
+The AOM is a programming object from Archetype Model (AM) \citep{openEHRAOM}, that contains all the variables and parameters related with  archetype and template identification, such as archetype specialization, authoring of archetypes, version numbering and respective modifications. Currently, it goes in the version 2, after being renamed from version 1.5 and includes extensions made from the version 1.4 of the ADL, like meta-data, new internal coding system, terminologies addition and many others. 
+
 These archetypes parameters are under the ARCHETYPE\_HRID and AUTHORED\_ARCHETYPE classes (that has inherited classes and parameters from the RESOURCE package), which can be seen the figure \ref{fig:RM_archtype}, represented by a \ac{LDM} for the AM package. Archetypes have two ways defined to be understood by machines or by humans \citep{openEHRarchver}. The human way is called Human readable Identifier (HRID), which consists on an identification structure that is defined by the ARCHETYPE\_HRID class. Inside of this class, there are parameters defined for each part of the "full" archetype name.
 
 \begin{figure}[H]
 	\centering
-    \includegraphics[width=1\textwidth]{img/RM_archtype.PNG}
-	\caption{am.aom2.archetype Package (from openEHR Archetype specification) MUDAR IMAGEM PARA VERSAO COMPLETA}
+    \includegraphics[width=1.1\textwidth]{img/AM-aom2_archetype.png}
+	\caption{am.aom2.archetype Package (from openEHR Archetype specification \citep{openEHRAOM})}
 	\label{fig:RM_archtype}
 \end{figure}
 
-This archetype name can be sorted in two ways, one by \textit{semantic\_id} which contains the extension of version status and the build\_count that shows the development status of that archetype, or by the \textit{physical\_id}, which is the formal aspect of an released archetype. This structures are composed by: \\
+\newpage
+The archetype name can be sorted in two ways, one by \textit{semantic\_id}, which contains the extension of version status and the build\_count, that shows the development status of that archetype, or by the \textit{physical\_id}, which is the formal aspect of an released archetype. This structures are composed by: \\
 
 \textbf{Structure for \textit{semantic\_id:}} 
 
@@ -144,17 +146,25 @@ If dividing all the parameters from the \textit{semantic\_id}, to match each par
 \end{itemize}
 \end{itemize}
 
-The junction of each one of these parameters lead to the full identification of the archetype in a human readable way. The machine readable way is composed by the MD5-CAM, archetype\_uid and build\_uid. Is possible to affirm that "\textit{ARCHETYPE.archetype\_id.semantic\_id}" is the equivalent readable human way of the \textit{"ARCHETYPE.uid"}, a machine identifier.\\
+The junction of each one of these parameters lead to the full identification of the archetype in a human readable way. The machine readable way is composed by the MD5-CAM, archetype\_uid and build\_uid. Is possible to affirm that "\textit{ARCHETYPE.archetype\_id.semantic\_id}" is the equivalent readable human way of the \textit{"ARCHETYPE.uid"}, a machine identifier \citep{openEHRarchver}.
 
-
+\newpage
 \subsubsection{Version numbering}
 
-In the specifications for archetype versioning and identification \citep{openEHRarchver}, the \textbf{"revision"} parameter has special rules for the numbering identification based on \textit{semVer} standard. The first three levels on numbering are identified by dot-separated numeric parts (\textit{majorVersion.minorVersion.pathVersion}). 
-The \textit{majorVersion} is incremented when there is a major and significant change to the artifact formal definition. This significant change can be the removal of mandatory data points or groups, removal of nodes (also known as paths), move of those nodes to different sub-tree or the change of domain definition of id-code. The \textit{minorVersion} is characterized by a lesser change such as changes in the constraints, including node RM types, additional definition nodes (e.g. new paths) or the addition of terminology bindings. In the case of \textit{patchVersion}, this is incremented each time there is an informal change of the archetype formal definition like changes to meta-data, addition of language translations, changes to wording of terminology that do not affect the sense of the definition or when the archetype is rejected. \citep{openEHRAOM_AIS} \par
-These three levels can be identified as "\textit{release\_version}" and this identifier can have added an extension including the (\textit{versionModifier.issueNumber}) which gives the information about the \textbf{"lifecycle status"} and the current build number / issue number. The lifecycle status can be composed by an alpha element ("-alpha") for an "under development" or "unstable" archetype and a "release candidate" ("-rc") for a archetype with a pre-release version. For example, it is possible to have two different types of revision parameters based on the previous explanation:
+In the specifications for archetype versioning and identification \citep{openEHRarchver}, the \textbf{"revision"} parameter has special rules for the numbering identification based on \textit{semVer} standard. The first three levels on numbering are identified by dot-separated numeric parts (\textit{majorVersion.minorVersion.pathVersion}). \\
 
-\begin{itemize}[noitemsep]
-\item \textbf{1.1.1-rc.12} , translated from (\textit{release\_version-description.lifecycle\_state.build\_count}) and it means that has a 3 part version identifier and is a release candidate with the build count of 12, which is incremented in every commit.
+The \textit{majorVersion} is incremented when there is a major and significant change to the artifact formal definition. This significant change can be the removal of mandatory data points or groups, removal of nodes (also known as paths), move of those nodes to different sub-tree or the change of domain definition of id-code. 
+
+The \textit{minorVersion} is characterized by a lesser change, such as changes in the constraints, including node RM types, additional definition nodes (e.g. new paths) or the addition of terminology bindings. 
+
+In the case of \textit{patchVersion}, this is incremented each time there is an informal change of the archetype formal definition, like changes to meta-data, addition of language translations, changes to wording of terminology that does not affect the sense of the definition or when the archetype is rejected. \citep{openEHRAOM_AIS} 
+
+These three levels can be identified as "\textit{release\_version}" and this identifier can have added an extension including the \textit{versionModifier.issueNumber}, which gives the information about the \textbf{"lifecycle status"} and the current build number / issue number. The lifecycle status can be composed by an alpha element, seen as "-alpha", for an "under development" or "unstable" archetype, and a "release candidate" ("-rc") for a archetype with a pre-release version. \\
+
+For example, it is possible to have two different types of revision parameters based on the previous explanation:
+
+\begin{itemize}
+\item \textbf{1.1.1-rc.12} , translated from (\textit{release\_version-description.lifecycle\_state.build\_count}) and it means that has a 3 part version identifier and is a release candidate with the \textit{build\_count} of 12, which is incremented in every commit.
 \item \textbf{1.1.0-alpha} , translated as (\textit{release\_version- description.lifecycle\_state}) and is an archetype with a alpha development version based on 1.1.0 version. 
 \end{itemize}
 
@@ -163,8 +173,11 @@ An example of a archetype life cycle containing the \textit{release\_version-des
 {1.1.5-rc.1 < 1.1.5-rc.2 < 1.1.5 < 1.1.6-alpha < 1.2.0-alpha < ... < 1.2.0}
 \end{center}
 
-The major version is reflected on the HRID source identifier, by ending the "archetype\_id" (e.g. openEHR-EHR-OBSERVATION.blood\_pressure.v1) with "v.X", being X the value from the \textit{majorVersion}. In the first version of the archetype, the  \textit{majorVersion} always starts with zero, having the "revision" parameters as (0.0.1). The identification name for an archetype with this parameters is "openEHR-EHR-OBSERVATION.blood\_pressure.v0" (\textit{RM\_publisher-RM\_closure-RM\_class-concept\_id.vX}).
+The major version is reflected on the HRID source identifier, by ending the "archetype\_id" (e.g. openEHR-EHR-OBSERVATION.blood\_pressure.v1) with "v.X", being X the value from the \textit{majorVersion}. \\
 
+In the first version of the archetype, the  \textit{majorVersion} always starts with zero, having the "revision" parameters as (0.0.1). The identification name for an archetype with these parameters is "openEHR-EHR-OBSERVATION.blood\_pressure.v0" (\textit{RM\_publisher-RM\_closure-RM\_class-concept\_id.vX}).
+
+\newpage
 The lifecycle status have specials names to map the classification of an archetype:
 \begin{table}[H]
 \caption{Archetype lifecycle mapping (XML format)}
@@ -176,13 +189,21 @@ The lifecycle status have specials names to map the classification of an archety
 aom_lifecycle_mappings = <
 
 	["AuthorDraft"] = <"unmanaged">
+    
 	["Draft"]	= <"in_development">
+    
 	["TeamReview"] = <"in_development">
+    
 	["Team Review"] = <"in_development">
+    
 	["ReviewSuspended"] = <"in_development">
+    
 	["Review Suspended"] = <"in_development">
+    
 	["Reassess"] = <"published">
+    
 	["Published"] = <"published">
+    
 	["Rejected"] = <"rejected">
 
 >
@@ -191,16 +212,13 @@ aom_lifecycle_mappings = <
 \end{tabular}
 \end{table}
 
-
-NOTA: - as vezes as diferencas sao praticamente nulas, pode ser a correcao de uma palavra, ou adicionar o lifecycle, o que vai fazer com que toda a informacao do MD5 mude. as vezes ate pode nem mudar, mas a juncao do md5 com uid e revision dá para ter a ideia de que algo mudou.
-
-TODO \url{http://www.openehr.org/releases/AM/latest/docs/Identification/Identification.html#_need_for_rm_class_name_in_identifier}
----------- Isto vai servir para explicar o AOM no adl designer.\\
-COLOCAR MAIS ALGUMA COISA AQUI
+The previous table maps all the names found inside of archetypes content to describe the lifecycle stage. 
 
 \subsubsection{Versioning parameters inside of ADL files}
 
-An EHR based on openEHR can digitally sign every version of an artifact in a versioned object (e.g. encounters). This artifacts are signed with a digital signature, composed by a private key encryption (RSA) of a hash (MD5) from the canonical representation of that versioned file (e.g. XML schema), using the openPGP message format. When the artifacts undergo with updates, these acts are called as contributions. Each contribution is then marked inside of the archetype with an attributed identification and integrity parameters mentioned above (MD5, build\_UID), that allows for each archetype to have a unique way to be managed in case of further changes. These parameters are based on cryptographic hash algorithms, which aim is to transform one input of variable size in an output of lesser and fixed size. For example, all the information of an archetype can be inserted in a hash like “7341F7E8A07ACE883A5F541BA79F2B95”. These algorithms are non-injective functions and the output identification of each of them can not be unequivocal. That means that some messages can have the same hash string and if they have the same hash, the input message should be equal on both, but it should not be possible to retrieve the original message by decrypting that hash. 
+An EHR based on openEHR can digitally sign every version of an artifact in a versioned object (e.g. encounters). These artifacts are signed with a digital signature, composed by a private key encryption (RSA) of a hash (MD5) from the canonical representation of that versioned file (e.g. XML schema), using the openPGP message format. \\
+
+When the artifacts undergo with updates, these acts are called contributions. Each contribution is then marked inside of the archetype with an attributed identification and integrity parameters mentioned above (MD5-CAM, build\_UID), that allows for each archetype to have a unique way to be managed in case of further changes. These parameters are based on cryptographic hash algorithms, which aim is to transform one input of variable size in an output of lesser and fixed size. For example, all the information of an archetype can be inserted in a hash like “7341F7E8A07ACE883A5F541BA79F2B95”. These algorithms are non-injective functions and the output identification of each of them can not be unequivocal. That means that some messages can have the same hash string and if they have the same hash, the input message should be equal on both, but it should not be possible to retrieve the original message by decrypting that hash. \\
 
 Relating this with the openEHR artifacts, an archetype with the same hash value of the item "MD5-CAM 1.0.1" should have the same information in the XML and ADL body. The identification parameters for the openEHR archetypes are shown in the table \ref{tab:bp_xml_adl}.
 
@@ -254,19 +272,22 @@ XML:
 
 These parameters are under the "other\_details" section and each one has a different content: 
 \begin{itemize}[noitemsep]
-\item \textbf{"archetype\_id”} which contains the information about the archetype name, for example "blood pressure" is defined as “openEHR-EHR-OBSERVATION.blood\_pressure.v1”. 
+\item \textbf{"archetype\_id”} which contains the information about the archetype name, including the major version, for example "blood pressure" is defined as “openEHR-EHR-OBSERVATION.blood\_pressure.v1”, where v1 is the major 
+version of this archetype.   
 \item \textbf{“original\_namespace”} refers the name of the organization that has originally been developing the archetype. 
 \item \textbf{“custodian\_namespace”} is used to refer the organization that is currently taking care of the archetype. It can changes from time to time in case of adoption from another organization. 
 \item \textbf{“original\_publisher”} identifies who were the responsible of publishing the archetype for the first time.   
-\item \textbf{“revision”} (e.g. “1.1.1”), based on the semantic versioning mentioned in the previous chapter. 
-\item \textbf{“lifecycle\_status”} which gives the stage of different lifecycles associated to the archetype development (e.g. “published”).
-\item \textbf{“uid”} is the identification number for each archetype. For example, the "blood pressure" archetype will always have the UID “b1506a87-9bf2-4978-9eed-6ceecb0c2be9”, even if the version of the archetype was changed. The format is made by an \ac{UUID}, an identifier that is unique across both space and time.
+\item \textbf{“revision”} (e.g. “1.1.1”), based on the semantic versioning from \textit{semVer}. 
+\item \textbf{“lifecycle\_state”} which gives the stage of different lifecycles associated to the archetype development (e.g. “published”).
+\item \textbf{“uid”}  is the unique identification number for each archetype. For example, 
+the "blood pressure" archetype will always have the UID “b1506a87-9bf2-
+4978-9eed-6ceecb0c2be9”, even if the version of the archetype was  changed. The format is made by an \ac{UUID}, an identifier that is unique across both space and time. 
 \item \textbf{“build\_uid”} -  Every time the archetype get a new change or version and is uploaded or committed to some repository, it will get a new "build\_id", which is unique for every build. The format is also made by an UUID. 
 \item \textbf{“Major Version UID”} - When the \textit{majorVersion} of the archetype changes (e.g. from v0 to v1) the Major Version UID also changes. It has a format of a Secure Hash Algorithm (SHA).
 \item \textbf{“Canonical MD5 Hash”} or \textbf{“MD5-CAM-1.0.1”} is a hash that is calculated by the actual values inside of the archetype, which means that every new version with changes will have a different hash code.
 \end{itemize}
 
-When an archetype is modified and get a new version, the parameters that identify it are also changed. In the image \ref{fig:compare_arch_versions.PNG}, which is related to the blood pressure archetype hosted on CKM international mirror at GitHub, the changes can be checked with the new values given to "MD5-CAM", "Build UID" and "revision". Another example can be seen on figure \ref{fig:MD5_hash_diff}. The red color is identifying the old version of the archetype and the new version is identified with green color.  
+When an archetype is modified and gets a new version, the parameters that identify  the versioning - “revision”, “build\_id” and “MD5-CAM” - are also changed. In the image \ref{fig:compare_arch_versions.PNG}, which is related to the blood pressure archetype hosted on CKM international mirror at GitHub, the changes can be checked with the new values given to "MD5-CAM", "Build UID" and "revision". Another example can be seen on figure \ref{fig:MD5_hash_diff}. The red color is identifying the old version of the archetype and the new version is identified with green color.  
 
 \begin{figure}[H]
 	\centering
@@ -278,25 +299,31 @@ When an archetype is modified and get a new version, the parameters that identif
 \begin{figure}[H]
 	\centering
   \includegraphics[width=1\textwidth]{img/MD5_hash_diff.PNG}
-	\caption{Changing the archetype provoke modification on the MD5-CAM-1.0.1 hash}
+	\caption{Changing the archetype provokes modification on the MD5-CAM-1.0.1 hash}
 	\label{fig:MD5_hash_diff}
 \end{figure}
 
 Some of these parameters, such as the "archetype\_UID", "Build\_UID" and "Canonical MD5 Hash" will be used to identify the new versions of archetypes in both repositories (international CKM and an local CKM) in the implementation and methodology chapters.
 
 
-\textbf{Important note:} the cryptographic algorithms currently used to transform the archetypes identification and body into a hash string have already been broken by collisions attacks. This means that there is probability of an archetype to present the same hash of another different archetype (although it is a very small possibility to happen).
+\textbf{Important note:} the cryptographic algorithms currently used to transform the archetypes identification and body into a hash string have already been broken by collisions attacks. This means that there is probability of an archetype to present the same hash of another different archetype, although it is a very small possibility to happen \citep{Selinger2006}.
 
 
 \section{Current outcomes from openEHR artifacts usage}
-The goal of openEHR was creating a set of archetypes in a single international repository (openEHR CKM) that could be used in an EHR system after being agreed by the international online community. Was also possible to add regional or local archetypes that would still compatible with the previous ones inserted in the international CKM and making the information being shareable with everybody. However the current use of archetypes are not working in this way. 
+One of the aims of openEHR was to provide public archetypes in a single 
+international repository (openEHR CKM), after being agreed by the international 
+online community, that could be used in several EHR systems around the globe. It 
+is also possible to add regional or local archetypes that would still be compatible with the previous ones inserted in the international CKM (using CKM incubator feature) and making the information shareable with everybody. However, the current use of archetypes are not working in this way \citep{Grieve2016vid}.\\
 
-Each project that makes use of archetypes have their own repository. Some of them are using the international CKM and being compliant with it. Other projects have download the archetypes from international CKM, but made a few changes on the archetype to reply to specification requirements (see section \ref{sssec:AS}) and then these are saved on local repositories like \textit{GitHub}, \textit{GitLab}, \textit{SubVersion} or \textit{Preforce}. This results in a jumble of archetypes variations from the international base of these archetypes, which was not the aim from openEHR. 
+Some of them are using the international CKM and being compliant with it, others are not. Other projects have initially downloaded the archetypes from international CKM, but made a few changes to comply to specification requirements (see section \ref{sssec:AS}) and then saved on local repositories like \textit{GitHub}, \textit{GitLab}, \textit{SubVersion} or \textit{Preforce}. This results in a jumble of archetypes variations from the international base of these archetypes, which was not the aim from openEHR. \\
 
 \section{Structure of openEHR Foundation International CKM Mirror on GitHub}
-To maintain a copy of every artifact created on the openEHR CKM repository, the openEHR Foundation made a mirror from the international CKM and hosted it on GitHub. This mirror contains all the archetypes, templates and termsets from the CKM “Authoring TRUNK”, including the published and unpublished/unstable artifacts that keep going under active development and review. If the “Authoring TRUNK” from CKM changes, this behavior it is automatically replicated by this mirror repository on GitHub. 
+To maintain a copy of every artifact created on the openEHR CKM repository, the openEHR Foundation made a mirror from the international CKM and hosted it on GitHub. This mirror contains all the archetypes, templates and termsets from the CKM “Authoring TRUNK”, including the published and unpublished/unstable artifacts that keep going under active development and review. If the “Authoring TRUNK” from CKM changes, this behavior it is automatically replicated by this mirror repository on GitHub. \\
 
-The figure \ref{fig:CKM_mirror_organization} shows that currently the OpenEHR International CKM are divided in two main groups in the same blob (master): local and remote. The local group refers to all the artifacts (archetypes, templates and termsets) contained on the openEHR CKM (org.openehr) that were made and reviewed by the online community. The remote group refers to the other instances from CKM (Nehta, Nasjonalikt and UK Clinical Models) that have artifacts submitted to the main CKM, but still authored by them. Commonly the main CKM is the most complete of all the instances created after it. 
+The figure \ref{fig:CKM_mirror_organization}, presented in the next page, shows that currently the OpenEHR International CKM structure are divided in two main groups in the same blob (master): local and remote. The local group refers to all the artifacts (archetypes, templates and termsets) contained on the openEHR CKM (org.openehr) that were made and reviewed by the online community. The remote group refers to the other instances from CKM (Nehta, Nasjonalikt and UK Clinical Models) that have artifacts submitted to the main CKM, but still authored by them. Commonly the main CKM is the most complete of all the instances created after it. 
+
+\vfill
+~
 
 \begin{figure}[H]
 	\centering

@@ -10,29 +10,40 @@ M. Madsen in 2010, while the international CKM was being created, proposed the p
 \begin{enumerate}[noitemsep]
 \item \textbf{Planning phase} - containing the content gathering and clinical engagement;
 \item \textbf{Analysis phase} - data analysis and consolidation, draft modeling estimate and knowledge of current available archetypes;
-\item \textbf{Requirements specification phase} - where are present the clarifications of content questions and other issues with end users and start of creation of a modeling plan;
+\item \textbf{Requirements specification phase} - where are presented the clarifications of content questions and other issues with end users and start of a modeling plan creation;
 \item \textbf{Design phase} - including the archetype design, creation of clinical models and the addition of terminology;
 \item \textbf{Testing, evaluation and review phase} - review of interactions between content and terminology and modeling review;
 \item \textbf{Delivery phase} - model sign-off and hand over to vendor;
 \item \textbf{Maintenance phase} - fixing small issues that can appear and giving correction updates if required.
 \end{enumerate}
 
-In the first phase of the development process is necessary to define essential procedures. Usually, this is the crucial point that will allows to do not waste time and money on reviewing all the procedures in every step of development, in case of wrong initial analysis. When making an initial data analysis, is mandatory to understand and determine all the necessary initial requirements, data collection and content gathering. This can be done by analyzing the many possible sources, like the paper based forms used on the health care institutions by the physicians, understanding how the work flow is processed in these institutions and which guidelines have been used. Also, checking how the existing electronic health records present the forms and the information stored on their databases can help. All the collected information can result in a archetype that will be fitting the main purpose. Also, include all the external parties and end-users involved in the process to have basic training on the openEHR methodology should optimize the content gathering process.
+In the first phase of the development process is necessary to define essential procedures. Usually, this is the crucial point that will allows to do not waste time and money on reviewing all the procedures in every step of development, in case of wrong initial analysis. When making an initial data analysis, is mandatory to understand and determine all the necessary initial requirements, data collection and content gathering. This can be done by analyzing the many possible sources, like the paper based forms used on the health care institutions by the physicians, understanding how the work flow is processed in these institutions and which guidelines have been used. Also, checking how the existing electronic health records present the forms and the information stored on their databases can help. All the collected information can result in a archetype that will be fitting the main purpose. Nevertheless, include all the external parties and end-users involved in the process to have basic training on the openEHR methodology should optimize the content gathering process.\\
   
-When the first step is almost concluded, is necessary to start a modeling process plan, which allows to have an idea of what the next process of archetype development will look like. It is always vital to have collaborative meetings to discuss the development process with end-users (health professionals), clinical modelers (e.g. health informatician), IT technicians and external parties that will be using the artifacts. This will allow to check if the requirements are being met, such as, verification if the archetypes and templates under development are aligned with the final user requirements and then maximizing the interoperability between the systems that will make use of the artifacts. One of the aims is to maximize the re-usage of each archetype created. Along with this, is time to start to prepare terminology, standards implementation, work flow and \ac{GUI} design to be used on production. 
+When the first step is almost concluded, is necessary to start a modeling process plan, which allows to have an idea of what the next process of archetype development will look like. It is always vital to have collaborative meetings to discuss the development process with end-users (health professionals), clinical modelers (e.g. health informatician), IT technicians and external parties that will be using the artifacts. This will allow to check if the requirements are being met, such as, verification of the archetypes and templates under development are aligned with the final user requirements and then maximizing the interoperability between the systems that will make use of these artifacts. One of the aims is to maximize the re-usage of each archetype created. Along with this, is time to start to prepare terminology, standards implementation, work flow and \ac{GUI} design to be used on production. \\
 
-During the second phase, is necessary to analyze and make a consolidation of the data gathered in the first stage. This should be done by a health informatician to identify issues in the process and contact directly with the physicians to solve the problems in a accurate and correct way. In this phase, a full analysis of existing archetypes is also done. A search should be made to check if there are already archetypes on the international CKM that fulfill the requirements or, if not, create new archetypes or improve the existing ones. Having a wide knowledge of already existing archetypes can save a lot of effort and time in this phase. 
+During the second phase, is necessary to analyze and make a consolidation of the data gathered in the first stage. This should be done by a health informatician to identify issues in the process and contact directly with the physicians to solve the problems in a accurate and correct way. In this phase, a full analysis of existing archetypes should also be made. A search should be made to check if there are already archetypes on the international CKM that fulfill the requirements or, if not, create new archetypes or improve the existing ones. Having a wide knowledge of already existing archetypes can save a lot of effort and time in this phase. \\
 
-For the requirements specification phase, possible content issues should be determined with all modelers, \ac{UX} experts, vendors and terminologists.\\
-TODO\\
-TODO\\
-TODO\\
-TODO\\
-TODO\\
+For the requirements specification phase, possible content issues should be determined with all technical modelers, \ac{UX} experts, vendors and terminologists and questions about the content should be clarified among the implementation team and the end users in an constant interaction. Communication between all is the key. In the design phase, also known as the archetype design phase \citep{Madsen2010} the primary creation should be conducted by physicians, since the structure and language used should reflect the environment of the main user of those resources. The addition of terminology, interface and modeling should be also done along this creation to maximize the development time and aim fitting. \\
 
-A template will not need to have the same amount of work for getting requirement like the case of the archetype - ver o quer o documento original diz mais acima ....
+Other very important stage is the testing, evaluation and review phase, where all the previous processes will be approved or not, after consensus from all the participants involved. During this phase, the end users should receive a preparatory introduction and training to the openEHR modeling to learn how to the archetype and templates work in order to help to improve the content from the artefacts, including the terminology used. The archetype modelling should also be reviewed in this phase, since each technical modeler have his own way to create different structures. This should include verification of all the archetype information present on the concept name, description, keywords, propose and use or misuse of the archetypes reviewed. Also, a comparison with other similar modeling standards should be done and feedback retrieved, for example from FHIR or HL7. When there is a consensus from all the team, everything is aligned from all the parts, this means the archetypes lifecycle can be changed to "published" and the delivery phase can start, which means that the vendors who are implementing these clinical models on their EHR systems can have access to the repository of clinical models or openEHR artefacs, like the openEHR CKM, for example. \\
 
-All these procedure should be prepared with usual meetings with healthcare, IT and technical professionals to make sure that the final aim will be compliant with every side.
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.5\textwidth]{img/LC_ARCH.PNG}
+	\caption{Initial phase of archetype creation, using the example of openEHR CKM as a clinical models repository}
+	\label{fig:LC_ARCH}
+\end{figure}
+
+
+Like all the others IT development projects, the final stage is the maintenance. After an archetype being published, is necessary to support it and continue to provide a continuous improvement on these artefacts. There are many reasons to keep maintenance, for instance, more additions could be implemented to the archetype that may reply to more specifications or requests from the vendors or the end users, some errors or bugs could be found and need to be quickly solved or could even be necessary to make a specialization using the parent archetype. Also after an archetype being published, its phase can constantly change. If this archetype gets a major or better version, it can be replaced, turning into an obsolete archetype.
+
+It is really necessary that all these procedures should be carefully prepared with usual meetings with healthcare, IT and technical professionals to make sure that the final aim will be compliant with every side.
+
+For template creation, it does not need to have the same amount of work and preparation to get specific requirements and further development, comparing with the case of the archetype, since it is only an aggregation of a set of archetypes.
+
+In the figure \ref{fig:arch_auth}, is possible to see the diagram made by the openEHR team \citep{Leslie2008} that currently takes care of the openEHR artefacts governance under the international CKM. The different archetype lifecycles are represented by the yellow boxes (draft, team review, published and obsolete) and those divide the different procedures made within each phase. 
+
 
 \begin{figure}[H]
 	\centering
@@ -41,14 +52,12 @@ All these procedure should be prepared with usual meetings with healthcare, IT a
 	\label{fig:arch_auth}
 \end{figure}
 
-TODO\\
-TODO\\
-TODO\\
-TODO\\
-TODO\\
+
 
 
 \section{Distributed governance of archetypes}
+
+When an archetype is being created, it usually starts by a need or request made, which will require a an openEHR modeler to start to construct it on his own computer. This means that this archetype will have no custodial organization (e.g. au.gov.nehta, uk.org.clinicalmodels or org.openehr) managing it. 
 \url{https://www.openehr.org/releases/AM/latest/docs/Identification/Identification.html#_distributed_governance} \\
 
 TODO\\
