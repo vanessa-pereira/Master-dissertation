@@ -52,14 +52,41 @@ In the figure \ref{fig:arch_auth}, is possible to see the diagram made by the op
 
 \section{Distributed governance of archetypes}
 
-The creation of an archetype usually starts when a need is found or a request is made, which will require a an openEHR modeler to start to construct it on his own computer alone or with a team from some project. This means that this archetype will have no custodial organization (e.g. au.gov.nehta, uk.org.clinicalmodels or org.openehr) managing it, getting the v0 version, following the \textit{semVer} rules, and the life cycle identifies it as "unmanaged" - this cycle does not exist on the openEHR CKM \citep{openehrckmgover2018}. After following all the steps described in the previous sub-chapter, when the archetype is done and prepared to be submitted to some ckm instance, it needs an approval from the custodian organization that manages that instance. After being submitted and accepted by the custodian organization, it gets this custodian name in the ARCHETYPE HRID namespace, e.g. \textbf{org.openehr::}openEHR-EHR-OBSERVATION.blood\_pressure.v1.adl and a new meta-data parameter within the archetype is filled as  e.g. ["custodian\_namespace"] = <"\textbf{org.openehr}"> along with a new UUID, license and copyright. Relatively to the versioning number, the major version is reset to 0 and the other versioning parameters (minor version and path) to 0.0.1. \\
+The creation of an archetype usually starts when a need is found or a request is made, which will require a an openEHR modeler to start to construct it on his own computer alone or with a team from some project. This means that this archetype will have no custodial organization (e.g. au.gov.nehta, uk.org.clinicalmodels or org.openehr) managing it, getting the v0 version, following the \textit{semVer} rules, and the life cycle identifies it as "unmanaged" - this cycle does not exist on the openEHR CKM \citep{openehrckmgover2018}. After following all the steps described in the previous sub-chapter, when the archetype is done and prepared to be submitted to some ckm instance, it needs an approval from the custodian organization that manages that instance. After being submitted and accepted by the custodian organization, it gets this custodian name in the ARCHETYPE HRID namespace, e.g. \textbf{org.openehr::}openEHR-EHR-OBSERVATION.blood\_pressure.v1.adl and a new meta-data parameter within the archetype is filled as  e.g. ["custodian\_namespace"] = <"\textbf{org.openehr}"> along with a new UUID, license and copyright. Relatively to the versioning number, the major version is reset to 0 and the other versioning parameters (minor version and path) to 0.0.1. 
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=1\textwidth]{img/development_lifecycle_with_versioning.png}
+	\caption{Development Lifecycle with Versioning \citep{openehrckmgover22018}}
+	\label{fig:development_lifecycle_with_versioning}
+\end{figure}
+
+Although an artefact can be accepted by a custodian organization, if this resource does not get an active maintenance, it can be rejected or migrated to another custodian organization. When this happens, the new custodian organization is allowed to make some changes on the archetype identification (human or machine readable way) under certain rules. In case of the human readable way, the \textit{namespace} can change to include the new organization, the \textit{concept\_id} (e.g. blood\_pressure) can also change depending on the new custodian requirements and the versioning parameter is usually changed to 0 (0.0.1). Since the human readable identifier (HRID) is changed, its \textit{uid} will be changed also to a new one, in conformity to the new name. Inside of the archetype content, there is a section to show the management history of an archetype that is being transfered between custodian organizations as it can be seen in table \ref{tab:arch_co_h}:
+
+\begin{table}[H]
+\caption{Archetype custodian organization history \citep{openehrckmgover2018}}
+\label{tab:arch_co_h}
+\centering
+\begin{tabular}{l}
+\toprule[2pt]
+\begin{lstlisting}[language=XML]
+    id_history = <
+        ["2001-05-27"] = <
+            old = <
+                hrid = <"au.com.rbh::openEHR-EHR-EVALUATION.problem_desc.v2.4.1">
+                uid = <"5221C9E5-0ECA-469F-83C5-A5D5A0C6682C">
+            >
+            new = <
+                hrid = <"au.gov.nehta::openEHR-EHR-EVALUATION.problem.v1.0.1">
+                uid = <"094C8B37-F0CD-45C9-A1B7-CDFDE14C67AB">
+            >
+        >
+\end{lstlisting}
+\tabularnewline \bottomrule[2pt]
+\end{tabular}
+\end{table}
 
 
-TODO\\
-TODO\\
-TODO\\
-TODO\\
-TODO\\
 
 
 \end{document}
