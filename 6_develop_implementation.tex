@@ -5,7 +5,7 @@ The subsections on this chapter explain how to create an account on ADL Designer
 
 
 \section{Programming Technologies}
-After analyzed all the materials that were provided, was decided that the best platform for the script would be by using an web browser because of its practicality. For that, it was used the Angular 2 framework, together with the REST API calls that could be made to ADL Designer web tool which works as a middleware for fetching resources from the local repositories and to GitHub openEHR CKM repository, along with all the materials mentioned on \textit{Materials and Methods} chapter. For this was created a web-page that can run this script in the background, after using the credentials from ADL Designer for login and authentication.
+After analyzed all the materials that were provided, was decided that the best platform for the script would be by using an web browser because of its practicality. It was used the Angular 2 framework, together with the REST API calls that could be made to ADL Designer web tool/application, which works as a middleware for fetching resources from the local repositories, and to GitHub openEHR CKM repository, along with all the materials mentioned on \textit{Materials and Methods} chapter. For this was created a web-page that can run this script in the background, after using the credentials from ADL Designer for login and authentication.
 
 
 \subsection{Script process and methodology}
@@ -48,7 +48,7 @@ The algorithm of the script works as follows:
 \end{figure}
 
 \section{Development}
-The script developed was based on the information taken from the objects retrieved by the REST API GET calls of archetypes and templates from ADL Designer to the local repository and from the structure study of openEHR CKM on GitHub, available on Chapter 3 - OpenEHR CKM. The information is analyzed by the script and returns the URL's from the updated archetype versions available at openEHR CKM mirror account. At this stage, the script only analyze and presents the archetypes from the openEHR CKM instance of the openEHR Foundation (Publisher Namespace: org.openEHR) and only present at the "local" folder (see image \ref{fig:CKM_mirror_organization}).
+The script developed was based on the information taken from the objects retrieved by the REST API GET calls of archetypes and templates from ADL Designer to the local repository and from the structure study of openEHR CKM on GitHub, available on Chapter 3 - OpenEHR CKM. The information is analyzed by the script and returns the URLs from the updated archetype versions available at openEHR CKM mirror account. At this stage, the script only analyze and presents the archetypes from the openEHR CKM instance of the openEHR Foundation (Publisher Namespace/Custodian Organization: org.openEHR) and only present at the "local" folder (see image \ref{fig:CKM_mirror_organization}).
 
  The classes created to received the information from the calls are presented at table \ref{tab:adl_designer_calls}, together with an example of the data received by each parameter.
 
@@ -99,13 +99,14 @@ Owing to the repository chosen for testing and proof of concept be connected to 
 For the searching component on the openEHR CKM mirror repository, the "rmType" parameter allowed to decide on which URL the archetype should be searched. In case on archetypes with the "rmType" paramater equal to "ACTION", "EVALUATION", "OBSERVATION", "INSTRUCTION" and "ADMIN\_ENTRY", the URL from GitHub should have appended the folder "Entry". In the other "rmType" cases, this was not necessary. The management of both cases can be seen in table \ref{tab:code_calls}. 
 
 \begin{table}[H]
-\caption{GET method calls and transformations}
+\caption{GET method calls, transformations and search}
 \label{tab:code_calls}
 \centering
 \begin{tabular}{l}
 \toprule[2pt]
 \begin{lstlisting}[language=java]
-(...)
+//(...)
+
       this.http.get(githubBaseUrl + this.archetypeLists[i].rmType.toLowerCase() + '/' + 
       this.archetypeLists[i].archetypeId + '.adl', options)
         .subscribe(
@@ -126,16 +127,68 @@ For the searching component on the openEHR CKM mirror repository, the "rmType" p
                 archetypeLists[i].temp_val = response.text().startsWith('archetype') ? imgOk + 
                 statusUpd : imgNotOk + statusOut;
               },
-(...)
+              
+//(...)
+
+                  switch (this.archetypeLists[i].rmType.toLowerCase()) {
+                    case "action":
+                    case "observation":
+                    case "admin_entry":
+                    case "evaluation":
+                    case "instruction":
+                      url = githubBaseUrl + 'entry/' + 
+                      this.archetypeLists[i].rmType.toLowerCase() + '/' + 
+                      this.archetypeLists[i].archetypeId + '.adl';
+                      break;
+                    default:
+                      url = githubBaseUrl +
+                      this.archetypeLists[i].rmType.toLowerCase() + '/' + 
+                      this.archetypeLists[i].archetypeId + '.adl';  
+                      break;
+                  }
+
+                  if (url.indexOf(".v0") > 0) {
+                    var urlGithub = url.replace("v0", "v1");
+                    console.log(urlGithub);
+                    return this.http.get(urlGithub)
+                      .subscribe(
+                      data => archetypeLists[i].urlGithubReturn = urlGithub,
+                      error => { archetypeLists[i].urlGithubReturn = (error.status === 200) ? 
+                      urlGithub : "Internal Archetype" }
+                      
+                      );
+                  }
+                  
+                  if (url.indexOf(".v1") > 0) {
+                    var urlGithub = url.replace("v1", "v0");
+                    return this.http.get(urlGithub)
+                      .subscribe(
+                      data => archetypeLists[i].urlGithubReturn = urlGithub,
+                      error => {
+                        var urlGithub = url.replace("v1", "v2");
+                        return this.http.get(urlGithub)
+                          .subscribe(
+                          data => { archetypeLists[i].urlGithubReturn = urlGithub },
+                          error => { archetypeLists[i].urlGithubReturn = 
+                          (error.status === 200) ? urlGithub : "Internal Archetype" }
+//(...)
+                        );
+                      },
+                    );
+                  }
 \end{lstlisting}
 \tabularnewline \bottomrule[2pt]
 \end{tabular}
 \end{table}
 
-
+With this, when the search by \textit{archetype\_id} is made to the openEHR CKM GitHub repository, the script will always return the URL of the latest version available, even in cases where the major version has been wrongly increased or decrease by some person responsible on the governance of the local repository. 
 
 
 \section{Results}
+
+The results can be seen live at \url{https://mim-script-openehr.stackblitz.io/}.
+
+The login section is situated on the top of the page, where the script will run. A small introduction of the motivation of creating this script was made, along with the information of how to use it. In the next figures is possible to see how the page was designed together with the results retrieved from the script, after analyzing the local repository mentioned on the \textit{Material and Methods} chapter. 
 
 \begin{figure}[H]
 	\centering
@@ -144,12 +197,26 @@ For the searching component on the openEHR CKM mirror repository, the "rmType" p
 	\label{fig:script_main_page}
 \end{figure}
 
+The script web-page was divided in 3 main sections: 
+
+\begin{enumerate}[noitemsep]
+\item Get Archetypes list from local repository;
+\item Comparison from local repository and compliance with the openEHR CKM mirror at Github;
+\item Get Templates list from local repository; 
+\end{enumerate}
+
+All this sections are dependent on the successful login made previously, otherwise will present a never-ending loading logo under each section until the login credentials are correct inserted. 
+
+The first section contains a table with a list of archetypes from the local repository, with the respective \textit{UID}, \textit{MD5-CAM} hash, \textit{build\_uid} and \textit{revision} parameters, and the URL to the local repository for a quick access from the user. Also, each parameter presents a small explanation of its meaning. 
+
 \begin{figure}[H]
 	\centering
     \includegraphics[width=1\textwidth]{img/get_arch_list.PNG}
 	\caption{Module Get Archetypes list from local repository }
 	\label{fig:get_arch_list}
 \end{figure}
+
+The second section presents the list of archetypes from the local repository (\textit{archetype\_id} and \textit{UID}) with the comparison result, that in case of outdated archetype, it returns the URL to the newest version on the GitHub openEHR CKM, along with the link to the version in the local repository. 
 
 \begin{figure}[H]
 	\centering
@@ -158,6 +225,57 @@ For the searching component on the openEHR CKM mirror repository, the "rmType" p
 	\label{fig:arch_comparison}
 \end{figure}
 
+On the top of each section, a resume from the analyzed process was made. Since the results obtained from the script were made by the archetype major version only (v.X), it was also made a comparison analysis with this information from the local repository and the openEHR CKM mirror at GitHub. The result and comparison can be seen in tables \ref{tab:repos_comp_mv} and \ref{tab:comp_manual_script}, respectively.
+
+\begin{table}[H]
+	\centering
+	\caption{Summary of archetype comparison analysis from the provided CKM repository with GitHub mirror of openEHR international CKM and the openEHR CKM by major version difference (June 2018) (n=41)}
+	\label{tab:repos_comp_mv}
+	\begin{tabular}{lll}
+		\toprule[2pt]
+		\multicolumn{3}{r}{\textbf{ Total (n=41) }} \\
+		\cmidrule(r){2-3}
+		\textbf{Archetype Status}   & \textbf{n} & \textbf{(\%)} \\
+		\midrule[2pt]
+		\textbf{Outdated } & 6 & (14,64) \\
+		\midrule
+		\textbf{Internal } & 16 & (39,02) \\
+		\midrule
+		\textbf{Not found } & 3 & (7,32) \\
+        \midrule
+		\textbf{Compliant } & 16 & (39,02) \\
+		\bottomrule[2pt]
+	\end{tabular}
+\end{table}
+
+When comparing the manual study made from the local repository to the openEHR CKM on GitHub to the developed script, the results are:
+
+\begin{table}[H]
+\centering
+\caption{Comparison of the local repository analysis results retrieved by the manual analysis and the developed script. }
+\label{tab:comp_manual_script}
+\begin{tabular}{p{6cm} p{3cm} p{6.5cm}}
+\toprule[2pt]
+\textbf{ } & \textbf{Manual Analysis} & \textbf{Developed Script} \\ \midrule[2pt]
+\textbf{Total archetypes}  & 41 & 41 \\ \midrule
+\textbf{Compliant archetypes} & 16 & 14 \\ \midrule
+\textbf{Not found archetypes} & 3 & N.A. \\ \midrule
+\textbf{Outdated archetypes} & 6 & 6 \\ \midrule
+\textbf{Internal archetypes} & 16 & 21 \\ \midrule
+\textbf{Outdated or Internal archetypes} & N.A. & 27 (6 outdated, 21 internal, which are presented together in the script)
+\\ \bottomrule[2pt]
+\end{tabular}
+\end{table}
+
+The major differences from both analysis are presented on the number of compliant archetypes and internal archetypes. In the first case, it is due to the mirror errors from the openEHR CKM to the GitHub account during the committing process, where the archetypes \textit{openEHR-EHR-CLUSTER.healthcare\_provider\_parent} and \textit{openEHR-EHR-CLUSTER.address\_isa} have not been mirrored, which causes a mislead to the script by recognizing these cases as internal archetypes. Other case that turns into misleading information, but in this case on the number of internal archetypes, are the archetypes whose archetype\_id have been renamed and cannot be found anymore on the openEHR CKM. These cases are:
+
+\begin{itemize}
+\item \textit{openEHR-EHR-OBSERVATION.indirect\_oximetry} to \textit{openEHR-EHR-OBSERVATION.pulse\_oximetry};
+\item \textit{openEHR-EHR-CLUSTER.timing\_repetition} to \textit{openEHR-EHR-CLUSTER.timing\_nondaily}.
+\end{itemize}
+
+In the next image, the second section is presented in detail, with some elements from the archetypes comparison list. Although the "red" alert for a outdated or internal archetype is appearing together, it can be understood that the archetype that is presented with and URL from GitHub in the next column, is a case of an outdated archetype. The next archetype on the list, is a case of an archetype that exists on the openEHR CKM, but it is not mirrored to the GitHub repository, which results on a "internal archetype" interpretation by the script.
+
 \begin{figure}[H]
 	\centering
     \includegraphics[width=1\textwidth]{img/arch_comparison_2.PNG}
@@ -165,7 +283,8 @@ For the searching component on the openEHR CKM mirror repository, the "rmType" p
 	\label{fig:arch_comparison_2}
 \end{figure}
 
-As a request for improvement, an method for retrieving the list of templates and the set of archetypes included on that templates was also added. 
+
+The third section, was a internal request where the internship was made for improvement and future use case, which retrieve the list of templates and the set of archetypes included on those templates.
 
 \begin{figure}[H]
 	\centering
@@ -175,5 +294,9 @@ As a request for improvement, an method for retrieving the list of templates and
 \end{figure}
 
 \subsection{Performance}
+
+There was the opportunity to have the script been used and tested in three different projects by request. Two of them had an average of 50 archetypes and 10 templates and the other, an average of 670 archetypes and 190 templates. Since the script is dependent of ADL Designer REST API calls, for fetching the content from different repositories, they need to be connected previously to ADL Designer. Currently ADL Designer supports ADL versions 1.4 and 2 of archetypes and .OET format from templates, so if the resources are not well structured or have been edited manually on a text editor, without checking the consistence of data (which can compromise the structuring of these resources), or are saved on a different format, ADL Designer will not read them and automatically exclude this cases. The first two repositories had really "fresh" archetypes and templates, comparing with the third repository, that has resources dated from 2013 and with a lot of not recognized formats (.adls, .xml, .opt) by ADL designer, which provokes the exclusion of this cases when presenting the list of resources on the script. Also if a OET template is having in his sets of archetypes, an archetype that does not exists on the repository, it will also retrieve an error and not take this template on consideration. \\
+
+The time taken for analysis of the script in the third case was considerably bigger, which took around 2,5 minutes to present all the page with the analysis and newer versions of archetypes available from GitHub, due to the higher number of resources, than in the first two cases, that only took 8 seconds to be completed. The speed of analysis can be quicker depending on the internet connection and the machine that is being used to run the script. This was tested on a machine with i5 2nd generation processor with 6 GB of RAM with WI-FI access, using Google Chrome version 68.0.3440.106 (64 bits).
 
 \end{document}
