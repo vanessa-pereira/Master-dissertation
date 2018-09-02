@@ -57,12 +57,12 @@
 \setcounter{secnumdepth}{3}
 
 %fontdefinitions
-\newfontfamily\coveredfont[SizeFeatures={Size={12}}]{Lato}
+\newfontfamily\coveredfont[SizeFeatures={Size={8.5}}]{Lato}
 \newfontfamily\covertitlefont[SizeFeatures={Size={19}}]{Lato Bold}
 \newfontfamily\coverauthfont[SizeFeatures={Size={13}}]{Lato}
 \newfontfamily\coveradvfont[SizeFeatures={Size={12}}]{Lato Bold}
 \newfontfamily\coveryearfont[SizeFeatures={Size={12}}]{Lato}
-\newfontfamily\chaptercoverfont[SizeFeatures={Size={30}},Color=808080]{Lato Bold}
+\newfontfamily\chaptercoverfont[SizeFeatures={Size={22}},Color=808080]{Lato Bold}
 
 %use as \frontCover{}. image file: img/cover_front.png
 \newcommand{\frontCover}[6]{
@@ -71,7 +71,7 @@
 	\AddToShipoutPicture*{%
 		\put(0,0){
 			\begin{overpic}[width=\paperwidth]%
-				{img/cover_front.png}
+				{img/cover_front-1.png}
 				\put(140,788){{\coveredfont #1}}
 				\put(180,530){{\covertitlefont #2}}
 				\put(180,510){{\covertitlefont #3}}
@@ -97,7 +97,7 @@
 	\AddToShipoutPicture*{%
 		\put(0,0){
 			\begin{overpic}[width=\paperwidth]%
-				{img/cover_inner.png}
+				{img/cover_inner-1.png}
 				\put(140,788){{\coveredfont #1}}
 				\put(180,530){{\covertitlefont #2}}
 				\put(180,510){{\covertitlefont #3}}
