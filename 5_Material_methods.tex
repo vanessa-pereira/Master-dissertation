@@ -64,7 +64,7 @@ During the analysis of both repositories, some not expected issues have been fou
 \begin{itemize}[noitemsep]
 \item From local repository:
 \begin{itemize}[noitemsep]
-\item Archetypes with the same content, but with different MD5 hash. Those can be due to some error from previous versions of ADL Designer, where this resources have been modeled or by some hand-made change on a text editor and then uploaded again to the local CKM. 
+\item Archetypes with the same content, but with different MD5 hash. Those can be due to some error from previous versions of ADL Designer, where this resources have been modeled or by some hand-made change to the archetype on a text editor and then uploaded it again to the local CKM. 
 \item Some of the updated archetypes presented minor changes that did not include any change on the MD5 hash parameter, which should not happen. If there is a change in the archetype, even by one character, the MD5 hash should change, since it is created from all the content inside of the archetype.
 \item Archetypes that have been codified with build\_uuid instead of build\_uid in the local repository, probably due to some implementation on ADL Designer, for example, the case of \textit{openEHR-EHR-OBSERVATION.body\_weigh} archetype.
 
@@ -72,13 +72,13 @@ During the analysis of both repositories, some not expected issues have been fou
 \item From openEHR CKM mirror at GitHub:
 \begin{itemize}[noitemsep]
 \item Archetypes that exists on openEHR CKM, but are not mirrored to the GitHub repository, e.g.: \textit{openEHR-EHR-CLUSTER.address\_isa} and \textit{openEHR-EHR-CLUSTER.healthcare\_provider\_parent}.
-\item Case of archetypes that have been renamed and lost connection to the previous resource, although they still have the same content and versioning parameters, e.g.: \textit{openEHR-EHR-CLUSTER.timing\_nondaily} and the previous \textit{openEHR-EHR-CLUSTER.timing\_repetition}, or the case of the \textit{openEHR-EHR-OBSERVATION.indirect\_oximetry}, with the previous name \textit{openEHR-EHR-OBSERVATION.pulse\_oximetry}. Since that change of the archetype name provokes a change on the achetype uid, it is complicated for a repository manager to follow the changes made, since the tracking from these archetypes is lost when the uid is changed. If the manager is not checking constantly the openEHR CKM news or the openEHR CKM twitter account, it is tricky and even more time consuming to know what changed and when.
+\item Case of archetypes that have been renamed and lost connection to the previous resource, although they still have the same content and versioning parameters, e.g.: \textit{openEHR-EHR-CLUSTER.timing\_nondaily} and the previous \textit{openEHR-EHR-CLUSTER.timing\_repetition}, or the case of the \textit{openEHR-EHR-OBSERVATION.indirect\_oximetry}, with the previous name \textit{openEHR-EHR-OBSERVATION.pulse\_oximetry}. Since that change of the archetype name provokes a change on the achetype \textit{UID}, it is complicated for a repository manager to follow the changes made, since the tracking from these archetypes is lost when the \textit{UID} is changed. If the manager is not checking constantly the openEHR CKM news or the openEHR CKM twitter account, it is tricky and even more time consuming to know what changed and when.
 \item Archetypes that are specialized from other archetypes (parents) and the those archetypes have been updated to newer versions or deleted from the repository, which make the connection between them lost.
 \end{itemize}
 \end{itemize}
 
 \section{Software Engineering}
-When designing any type of software, it is necessary to know what are the requirements and needs for correct implementation. Making an user story and a use case of what will be developed in this dissertation can help to understand it in a much better way. These two approaches contain a set of narratives of real situations inside of the problem domain and describe the work flow in the perspective of one or more users of the system.  
+When designing any type of software, it is necessary to know what are the requirements and needs for correct implementation. Making an user story and a use case of what will be developed in this dissertation, can help to understand it in a much better way. These two approaches contain a set of narratives of real situations inside of the problem domain and describe the work flow in the perspective of one or more users of the system.  
 
 \subsection{User story and use case}
 
@@ -97,7 +97,7 @@ Because of this, when the information was inserted in the form by the user (phys
 
 If a experienced openEHR clinical modeler is used to these type of errors, it can be corrected quickly. Usually, if detected in a earlier stage by constant checking for updates on openEHR CKM, can save several time and money on projects.
 
-After some analysis of the CKM repositories users, was defined that the usual user of the script to update the archetypes would be the person responsible for taking care of the governance of the local openEHR artifacts repository on their respective project, role usually performed by a clinical modeler, health informatician or even a programmer (when access to the first two are not available). It starts with one of these users being the "CKM repository owner", creating an account on ADL Designer web application and login on that application. After that, is necessary to create the desired repository connector and connect it to the local repository, which can be from a local computer folder or from an online repository. After the account and repository were created, a login with the same credentials and repository id from ADL Designer needs to be inserted on the login section of the script page ,and if the user is authenticated successful, the script will run the code and a table with a list of archetypes and templates from that repository will be presented. If there are updates, those will appear together in a column with the alert of an outdated or compliant archetype with the openEHR CKM mirror on GitHub, for each element from those lists. A link that retrieve the actual archetype RAW form (ADL) from the openEHR CKM mirror on GitHub should be click-able. Then, if the user wants to download this new archetype to his computer, he can use a tool for comparison like Tortoise SVN, that will show the difference between the new archetype and the old archetype hosted in the local repository. This part needs to be done manually by the user. 
+After some analysis of the CKM repositories users, was defined that the usual user of the script to update the archetypes would be the person responsible for taking care of the governance of the local openEHR artifacts repository on their respective project, role usually performed by a clinical modeler, health informatician or even a programmer (when access to the first two are not available). It starts with one of these users being the "CKM repository owner", creating an account on ADL Designer web tool and login on that application. After that, is necessary to create the desired repository connector and connect it to the local repository, which can be from a local computer folder or from an online repository. After the account and repository were created, a login with the same credentials and repository \textit{id} from ADL Designer needs to be inserted on the login section of the script page, and if the user is authenticated successful, the script will run the code and a table with a list of archetypes and templates from that repository will be presented. If there are updates, those will appear together in a column with the alert of an outdated or compliant archetype with the openEHR CKM mirror on GitHub, for each element from those lists. A link that retrieve the actual archetype RAW form (ADL) from the openEHR CKM mirror on GitHub should be click-able. Then, if the user wants to download this new archetype to his computer, he can use a tool for comparison like Tortoise SVN, that will show the difference between the new archetype and the old archetype hosted in the local repository. This part needs to be done manually by the user. 
 
 \begin{figure}[H]
 	\centering
@@ -111,7 +111,7 @@ After some analysis of the CKM repositories users, was defined that the usual us
 \section{ADL Designer}
 ADL Designer is a open source web based tool developed by Marand d.o.o. for implementation of modeling tools used in development of openEHR artifacts. Is mostly written on JAVA and JavaScript, with a web interface based on jQuery and Bootstrap 3 frameworks. It has full compatibility with the OET files from the previous openEHR tools by Ocean Informatics and also to version 1.4 of archetypes and templates. Is composed by two main modules, the Archetype Editor and Template Editor. \\
 
-For using this tool, is mandatory to have an account to login. Currently it provides a free access for testing with a default "test" account. After login is necessary to add a web repository or a local folder repository. One of the most interesting features from ADL Designer is that it can be connect to inumerous repositories hosted in different GIT providers, either online or local, such as GitHub, GitLab, Bitbucket, Dropbox, Google Drive, OneDrive or at a local GIT folder in a single computer, allowing the possibility to work on top of each one of them. With this, is possible to edit archetypes and templates from these repositories and directly save the changes made on the repositories again, having the history of all these changes in one place and the possibility to rewind in case of sudden lost of files.
+For using this tool, is mandatory to have an account to login. Currently, it provides a free access for testing with a default "test" account. After login, is necessary to add a web repository or a local folder repository. One of the most interesting features from ADL Designer is that it can be connect to inumerous repositories hosted in different GIT providers, either online or local, such as GitHub, GitLab, Bitbucket, Dropbox, Google Drive, OneDrive or at a local GIT folder in a single computer, allowing the possibility to work on top of each one of them. With this, is possible to edit archetypes and templates from these repositories and directly save the changes made on the repositories again, having the history of all these changes in one place and the possibility to rewind in case of sudden lost of files.
 
 \begin{figure}[H]
 	\centering
@@ -120,7 +120,7 @@ For using this tool, is mandatory to have an account to login. Currently it prov
 	\label{fig:adldesigner}
 \end{figure}
 
-Also, it gives the option of exporting the content from the added repository and analyze the content, like retrieving the amount of normal and specialized archetypes, getting the information if some parent archetype that was used for specialization is missing from the repository, getting the list of clinical terminologies bindings used on each archetype and by parsing them it shows if there are misleading in some terms or constrains, or if \textit{RMtype} slots are not filled on the respective templates. It is in constant development and will support new features in a near future.  \\
+Also, it gives the option of exporting the content from the added repository and analyze the content, like retrieving the amount of normal and specialized archetypes, getting the information if some parent archetype that was used for specialization is missing from the repository, getting the list of clinical terminologies bindings used on each archetype and by parsing them, it shows if there are misleading in some terms or constrains, or if \textit{RMtype} slots are not filled on the respective templates. It is in constant development and will support new features in a near future.  \\
 
 The source code can be found at \url{https://github.com/openEHR/adl-designer}. 
 
@@ -167,7 +167,7 @@ The template editor works in a similar way of Archetype Editor. It uses the same
 \item \textbf{AOM.TemplateModel}, which models a template where is possible to add or remove archetypes.
 \end{itemize}
 
-All the other functionalities from AOM variable (ArchetypeModel, NodeId, RmPath, AmQuery, ReferenceModel) are inherited from the Archetype Editor model, mentioned previously.
+All the other functionalities from AOM variable (\textit{ArchetypeModel, NodeId, RmPath, AmQuery, ReferenceModel}) are inherited from the Archetype Editor model, mentioned previously.
 
 \begin{figure}[H]
 	\centering
@@ -176,7 +176,7 @@ All the other functionalities from AOM variable (ArchetypeModel, NodeId, RmPath,
 	\label{fig:templateEditor}
 \end{figure}
 
-Some of the features that are possible to be done on this editor are: Adding annotations, making changes to the occurrences of some openEHR template paths, adding external terminology (for example from a URI) or adding local terminology, work on the desired language present on the composition archetype and in the archetypes added as a content in the main template.
+Some of the features that are possible to be done on this editor are: Adding annotations, making changes to the occurrences of some openEHR template paths, adding external terminology (for example from a URI) or adding local terminology, work on the desired language present on the composition archetype and in the archetypes added as a content in the main template.\\
 
 Along with the "Archetype Repository" module, it also has the "Template Repository" modules in the web server side, that make accesses by REST API calls to the repository where the content is allocated and retrieves the list of templates. Besides that, it allows to load, edit and save the templates back to that repository. In the figure \ref{fig:templateEditorArchitecture} is possible to see the architecture model. 
 
@@ -188,12 +188,12 @@ Along with the "Archetype Repository" module, it also has the "Template Reposito
 \end{figure}
 
 \section{Angular 2}
-Angular 2 is a open-source web application platform made by Google that relies on front-end for building client-side applications in \ac{HTML} and it is based on TypeScript \citep{angular}.
+Angular 2 is a open-source web application platform made by Google, that relies on front-end for building client-side applications in \ac{HTML} and it is based on TypeScript \citep{angular}.
 
-Is fully re-written from its predecessor, the Angular JS (JavaScript). The developed script from this dissertation was written with using framework, since it can provide almost all the needed functionalities out of the box, like the HTTP client that allows to interact with the REST API calls from both openEHR resources repositories and dependency injection without having to worry with external libraries, since this framework bring a bigger part of them.
+Is fully re-written from its predecessor, the Angular JS (JavaScript). The developed script from this dissertation was written using Angular 2 framework, since it can provide almost all the needed functionalities out of the box, like the \textit{HTTP client}, that allows to interact with the REST API calls from both openEHR resources repositories and dependency injection, without having to worry with external libraries, since this framework bring a bigger part of them.
 
 It is composed by modules, components, services and dependency injection. 
-Angular allows to construct modular applications and it has also a modular system - the NgModule, which contains code for the application domain and explain how the application parts fits together. It contains a decorator called @NgModule that has the metadata and properties to describe the module like: imports, providers, declarations, exports and \textit{bootstrap}. These properties can be seen in table \ref{tab:ngmoduleexample}. 
+Angular allows to construct modular applications and it has also a modular system - the \textit{NgModule}, which contains code for the application domain and explain how the application parts fits together. It contains a decorator called \textit{@NgModule}, that has the metadata and properties to describe the module like: imports, providers, declarations, exports and \textit{bootstrap}. These properties can be seen in table \ref{tab:ngmoduleexample}. 
 
 The components are what controls the view of what will appear on the screen. These components can be created, updated or destroyed depending on the user movement through the application depending on the lifecycle function chosen.   
 
@@ -245,11 +245,11 @@ export class AppModule { }
 
 
 \subsection{NPM}
-The npm is a \ac{CLI} package manager helper that interacts with a remote registry and downloads automatically or when required the external libraries and plugins for the project that is being developed. Although that are other versions like "\textit{yarn}", the npm was the one chosen for the script due to be easy to use and because it has access to a huge number of packages. For example, it can downloads all the necessary libraries that are necessary from Angular, like "@angular/core" for the Core module or the HTTP client module like "@angular/common/http" for the HTTP requests. 
+The npm is a \ac{CLI} package manager helper that interacts with a remote registry and downloads automatically or when required the external libraries and plugins for the project that is being developed. Although that are other versions like "\textit{yarn}", the npm was the one chosen for the script due to be easy to use and because it has access to a huge number of packages. For example, it can download all the necessary libraries that are necessary from Angular, like "@angular/core" for the Core module or the \textit{HTTP client} module like "@angular/common/http" for the HTTP requests. 
 
 
 \subsection{TypeScript}
-Typescript is a scripting language that works as a superset of JavaScript and was created by Microsoft. It has more static types, asynchronous functions and tools than JavaScript and it can make type-checking and auto-completion of the code while is being typed. The aim to create this new language was to make the writing code more maintainable in large JavaScript projects.
+Typescript is a scripting language that works as a superset of JavaScript and was created by Microsoft. It has more static types, asynchronous functions and tools than JavaScript, and it can make type-checking and auto-completion of the code while is being typed. The aim to create this new language was to make the writing code more maintainable in large JavaScript projects.
 
 
 \section{GitHub OpenEHR CKM Mirror}

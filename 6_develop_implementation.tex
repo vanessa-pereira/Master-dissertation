@@ -3,10 +3,8 @@
 
 The subsections on this chapter explain how to create an account on ADL Designer, the web-tool used for parsing the openEHR resources, and how to connect a repository with it. Are also explained the steps taken for the development of the script made for archetypes compliance and comparison from a local repository with the GitHub mirror of openEHR CKM.  
 
-
 \section{Programming Technologies}
-After analyzed all the materials that were provided, was decided that the best platform for the script would be by using an web browser because of its practicality. It was used the Angular 2 framework, together with the REST API calls that could be made to ADL Designer web tool/application, which works as a middleware for fetching resources from the local repositories, and to GitHub openEHR CKM repository, along with all the materials mentioned on \textit{Materials and Methods} chapter. For this was created a web-page that can run this script in the background, after using the credentials from ADL Designer for login and authentication.
-
+After analyzed all the materials that were provided, was decided that the best platform for the script would be by using an web browser, due to its practicality for an ordinary user. It was used the Angular 2 framework, together with the REST API calls that could be made to ADL Designer web tool/application, which works as a \textit{middleware} for fetching resources from the local repositories, and to GitHub openEHR CKM repository, along with all the materials mentioned on \textit{Materials and Methods} chapter. For this, was created a web-page that can run this script in the background, after using the credentials from ADL Designer for login and authentication.
 
 \subsection{Script process and methodology}
 
@@ -18,7 +16,7 @@ After getting an account, it is necessary to connect the desired repository to A
 
 \begin{figure}[H]
 	\centering
-    \includegraphics[width=1\textwidth]{img/adl_designer_repositories.PNG}
+    \includegraphics[width=0.9\textwidth]{img/adl_designer_repositories.PNG}
 	\caption{Configuring repository connection on ADL Designer}
 	\label{fig:adl_designer_repositories}
 \end{figure}
@@ -28,11 +26,11 @@ With this, the openEHR based repository is created and connected to ADL Designer
 \subsubsection{Script Algorithm}
 The algorithm of the script works as follows:
 \begin{enumerate}[noitemsep]
-\item Connect and authenticate to ADL Designer (user:password);
-\item Connect to repository inside of ADL Designer (repositoryID);
-\item GET method call to ADL Designer to get list of archetypes and templates from repository;
-\item Parse the object from the previous call by "archetypeID", "UID", "rmType", "MD5-CAM-1.0.1", "build\_uid", "revision";
-\item GET method call for raw file URL from GitHub that allows archetype comparison;
+\item Connect and authenticate to ADL Designer (\textit{user:password});
+\item Connect to repository inside of ADL Designer (\textit{repositoryID});
+\item GET method call to ADL Designer to get the list of archetypes and templates from the local repository;
+\item Parse the object obtained from the previous call by \textit{archetypeID}, \textit{UID}, \textit{rmType}, \textit{MD5-CAM-1.0.1}, \textit{build\_uid}, \textit{revision};
+\item GET method call for raw file URL from GitHub, that allows the archetype comparison;
 \item Differentiate the URL paths for each archetype RM type;
 \item Make comparison between versions on both repositories and return the new ones that can be found on GitHub;
 \item Present results for archetype comparison (compliant or not compliant) and in case of-non internal archetype, return the GitHub URL for the new version of archetype in ADL RAW format.
@@ -48,9 +46,9 @@ The algorithm of the script works as follows:
 \end{figure}
 
 \section{Development}
-The script developed was based on the information taken from the objects retrieved by the REST API GET calls of archetypes and templates from ADL Designer to the local repository and from the structure study of openEHR CKM on GitHub, available on Chapter 3 - OpenEHR CKM. The information is analyzed by the script and returns the URLs from the updated archetype versions available at openEHR CKM mirror account. At this stage, the script only analyze and presents the archetypes from the openEHR CKM instance of the openEHR Foundation (Publisher Namespace/Custodian Organization: org.openEHR) and only present at the "local" folder (see image \ref{fig:CKM_mirror_organization}).
+The script developed was based on the information taken from the objects retrieved by the REST API GET calls of archetypes and templates from ADL Designer to the local repository, and from the structure study of openEHR CKM on GitHub, available on Chapter 3 - OpenEHR CKM. The information is analyzed by the script and it returns the URLs from the updated archetype versions available at openEHR CKM mirror account. At this stage, the script only analyze and presents the archetypes from the openEHR CKM instance of the openEHR Foundation (Publisher Namespace/Custodian Organization: org.openEHR) and only present at the "local" folder (see image \ref{fig:CKM_mirror_organization}).
 
- The classes created to received the information from the calls are presented at table \ref{tab:adl_designer_calls}, together with an example of the data received by each parameter.
+The classes created to received the information from the calls are presented at table \ref{tab:adl_designer_calls}, together with an example of the data received by each parameter.
 
 \begin{table}[H]
 \caption{Classes "Archetypes" and "Templates" used to get information from ADL Designer calls}
@@ -188,7 +186,7 @@ With this, when the search by \textit{archetype\_id} is made to the openEHR CKM 
 
 The results can be seen live at \url{https://mim-script-openehr.stackblitz.io/}.
 
-The login section is situated on the top of the page, where the script will run. A small introduction of the motivation of creating this script was made, along with the information of how to use it. In the next figures is possible to see how the page was designed together with the results retrieved from the script, after analyzing the local repository mentioned on the \textit{Material and Methods} chapter. 
+The login section is situated on the top of the page, where the script will run. A small introduction about the motivation of creating this script was made, along with the information of how to use it. In the next figures is possible to see how the page was designed together with the results retrieved from the script, after analyzing the local repository mentioned on the \textit{Material and Methods} chapter. 
 
 \begin{figure}[H]
 	\centering
@@ -207,7 +205,7 @@ The script web-page was divided in 3 main sections:
 
 All these sections are dependent on the successful login made previously, otherwise the web page will present a never-ending loading logo under each section, until the login credentials are correctly inserted. \\
 
-The first section contains a table with a list of archetypes from the local repository, with the respective \textit{UID}, \textit{MD5-CAM} hash, \textit{build\_uid} and \textit{revision} parameters, and the URL to the local repository for a quick access from the user. Also, each parameter presents a small explanation of its meaning. 
+The first section contains a table with a list of archetypes from the local repository, with the respective \textit{UID}, \textit{MD5-CAM} hash, \textit{build\_uid} and \textit{revision} parameters, and the URL to the local repository for a quick user access. Also, each parameter presents a small explanation of its meaning. 
 
 \begin{figure}[H]
 	\centering
@@ -225,7 +223,7 @@ The second section presents the list of archetypes from the local repository (\t
 	\label{fig:arch_comparison}
 \end{figure}
 
-On the top of each section, a resume from the analyzed process was made. Since the results obtained from the script were made by the archetype major version only (v.X), it was also made a comparison analysis with this information from the local repository and the openEHR CKM mirror at GitHub. The result and comparison can be seen in tables \ref{tab:repos_comp_mv} and \ref{tab:comp_manual_script}, respectively.
+On the top of each section, a resume from the analyzed process was made. Since the results obtained from the script were made by the archetype major version only (v.X), it was also made a comparison analysis with this information from the local repository provided for testing and the openEHR CKM mirror at GitHub. The result and comparison can be seen in tables \ref{tab:repos_comp_mv} and \ref{tab:comp_manual_script}, respectively.
 
 \begin{table}[H]
 	\centering
@@ -267,9 +265,9 @@ When comparing the manual study made from the local repository to the openEHR CK
 \end{tabular}
 \end{table}
 
-The major differences from both analysis are presented on the number of compliant archetypes and internal archetypes. In the first case, it is due to the mirror errors from the openEHR CKM to the GitHub account during the committing process, where the archetypes \textit{openEHR-EHR-CLUSTER.healthcare\_provider\_parent} and \textit{openEHR-EHR-CLUSTER.address\_isa} have not been mirrored, which causes a mislead to the script by recognizing these cases as internal archetypes. Other case that turns into misleading information, but in this case on the number of internal archetypes, are the archetypes whose archetype\_id have been renamed and cannot be found anymore on the openEHR CKM. These cases are:
+The major differences from both analysis are presented in the number of compliant archetypes and internal archetypes. In the first case, it is due to the mirror errors from the openEHR CKM to the GitHub account during the committing process, where the archetypes \textit{openEHR-EHR-CLUSTER.healthcare\_provider\_parent} and \textit{openEHR-EHR-CLUSTER.address\_isa} have not been mirrored, and these causes a mislead to the script by recognizing them as internal archetypes. Other case that turns into misleading information, but in this case in the number of internal archetypes, are the archetypes whose archetype\_id have been renamed and cannot be found anymore on the openEHR CKM. These cases are:
 
-\begin{itemize}
+\begin{itemize}[noitemsep]
 \item \textit{openEHR-EHR-OBSERVATION.indirect\_oximetry} to \textit{openEHR-EHR-OBSERVATION.pulse\_oximetry};
 \item \textit{openEHR-EHR-CLUSTER.timing\_repetition} to \textit{openEHR-EHR-CLUSTER.timing\_nondaily}.
 \end{itemize}
@@ -295,8 +293,8 @@ The third section, was a internal request where the internship was made for impr
 
 \subsection{Performance}
 
-There was the opportunity to have the script been used and tested in three different projects by request. Two of them had an average of 50 archetypes and 10 templates and the other, an average of 670 archetypes and 190 templates. Since the script is dependent of ADL Designer REST API calls, for fetching the content from different repositories, they need to be connected previously to ADL Designer. Currently ADL Designer supports ADL versions 1.4 and 2 of archetypes and .OET format from templates, so if the resources are not well structured or have been edited manually on a text editor, without checking the consistence of data (which can compromise the structuring of these resources), or are saved on a different format, ADL Designer will not read them and automatically exclude this cases. The first two repositories had really "fresh" archetypes and templates, comparing with the third repository, that has resources dated from 2013 and with a lot of not recognized formats (.adls, .xml, .opt) by ADL designer, which provokes the exclusion of this cases when presenting the list of resources on the script. Also if a OET template is having in his sets of archetypes, an archetype that does not exists on the repository, it will also retrieve an error and not take this template on consideration. \\
+There was the opportunity to have the script been used and tested in three different projects by request. Two of them had an average of 50 archetypes and 10 templates and the other, an average of 670 archetypes and 190 templates. Since the script is dependent of ADL Designer REST API calls, for fetching the content from different repositories, they need to be connected previously to ADL Designer. Currently ADL Designer supports ADL versions 1.4 and 2 of archetypes and .OET format from templates, so if the resources are not well structured or have been edited manually on a text editor, without checking the consistence of data (which can compromise the structuring of these resources), or are saved on a different format, ADL Designer will not read them and automatically exclude this cases. The first two repositories had really "fresh" archetypes and templates, comparing with the third repository, that has resources dated from 2013 and with a lot of not recognized formats (.adls, .xml, .opt) by ADL designer, which provokes the exclusion of this cases when presenting the list of resources on the script. Also if an OET template is having in his sets of archetypes, an archetype that does not exists on the repository, it will also retrieve an error and not take this template on consideration. \\
 
-The time taken for analysis of the script in the third case was considerably bigger, which took around 2,5 minutes to present all the page with the analysis and newer versions of archetypes available from GitHub, due to the higher number of resources, than in the first two cases, that only took 8 seconds to be completed. The speed of analysis can be quicker depending on the internet connection and the machine that is being used to run the script. This was tested on a machine with Intel i5 2nd generation processor with 6 GB of RAM with WI-FI access and a HDD drive, using Google Chrome version 68.0.3440.106 (64 bits).
+The time taken for the script analysis in the third case was bigger, which took around 2,5 minutes to present all the page with the analysis and newer versions of archetypes available from GitHub, due to the higher number of resources, than in the first two cases, that only took 8 seconds to be completed. The speed of analysis can be quicker depending on the internet connection and the machine that is being used to run the script. This was tested on a machine with Intel i5 2nd generation processor with 6 GB of RAM with WI-FI access and a HDD drive, using Google Chrome version 68.0.3440.106 (64 bits).
 
 \end{document}
