@@ -54,13 +54,10 @@ After study how the CKM and the archetype versioning works, a comparison between
 
 \subsection{Dealing with versioning of openEHR resources}
 
-During the analysis of the provided repository, there was the oportunity to have a insight at other repositories with openEHR artifacts of different projects, managed by different people with various backgrounds. Many issues were found related with how to deal with versioning, specializations and how to give proper names to these resources.  
+During the analysis of the provided repository, there was the oportunity to have a insight at other repositories with openEHR artifacts of different projects, managed by different people with various backgrounds. Many issues were found related with how to deal with versioning, specializations and how to give proper names to these resources. \\ 
 
 Some of these issues exists due to the lack of study and comprehension of how the openEHR standard works, which needs to be very well studied first, since the wrong usage of this, can lead to a very poor way of structuring, storing and retrieving health data. \\
 
-TODO
-
-Specializations: Case of \textit{openEHR-EHR-OBSERVATION.fetal\_heart-monitoring.v1}, which is a specialization of \textit{openEHR-EHR-OBSERVATION.fetal\_heart.v1}. When a specialization happens, the concept\_id "fetal\_heart" gets an hyphen "-" added to this parameter, being the final result "fetal\_heart-monitoring" that allows to easily understand that is a case of specialization.
 
 \subsubsection{Recommendations}
 OpenEHR standard structures how the health data should be stored and retrieved. Nowadays the health data is in constant grow along with the usage of the new wearables that can be connected to device (e.g. smartphone) and send the health data to an EHR server. In the case of this server be rulled by the openEHR standard, which requires to have the core data precisely defined and updated. So when developing a new system, these next steps should be taken into account:
