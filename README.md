@@ -1,6 +1,12 @@
 # Msc in Medical Informatics dissertation: Governance of openEHR based local repository compliant with openEHR Clinical Knowledge Manager
 
-This repository contains all the LateX files from my medical informatics master dissertation entitled "Governance of openEHR based local repository compliant with openEHR Clinical Knowledge Manager" + pdf file. Made with overleaf.
+This repository contains all the LateX files from my medical informatics master dissertation entitled "Governance of openEHR based local repository compliant with openEHR Clinical Knowledge Manager". Made with overleaf.
+
+**Published .pdf:** https://repositorio-aberto.up.pt/handle/10216/119499
+
+**Online checker:** https://mim-script-openehr.stackblitz.io/
+ 
+**Online checker source code:** https://github.com/vanessa-pereira/mim-script-openehr
 
 
 ## Abstract
